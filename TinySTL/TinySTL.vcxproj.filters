@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\fundation">
+      <UniqueIdentifier>{5601948d-f31c-4fc6-988c-7cdaa8c0ec59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\algorithm">
+      <UniqueIdentifier>{aade0eb8-fd0f-4ef3-9345-752aa3aaf27c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\container">
+      <UniqueIdentifier>{4a2b7be8-f2dd-433f-9959-9df4bd2b8246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\lib">
+      <UniqueIdentifier>{52944df1-10d2-4212-90e5-bfe837d34e11}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\fundation\alloc.h">
+      <Filter>src\fundation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\fundation\allocator.h">
+      <Filter>src\fundation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\fundation\construct.h">
+      <Filter>src\fundation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\fundation\exceptdef.h">
+      <Filter>src\fundation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\fundation\functional.h">
+      <Filter>src\fundation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\fundation\iterator.h">
+      <Filter>src\fundation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\fundation\type_traits.h">
+      <Filter>src\fundation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\fundation\uninitialized.h">
+      <Filter>src\fundation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\fundation\utility.h">
+      <Filter>src\fundation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\algorithm\algorithm.h">
+      <Filter>src\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\container\vector.h">
+      <Filter>src\container</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\container\list.h">
+      <Filter>src\container</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\container\deque.h">
+      <Filter>src\container</Filter>
+    </ClInclude>
+    <ClInclude Include="..\test\lib\redbud\io\color.h">
+      <Filter>test\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\test\lib\redbud\platform.h">
+      <Filter>test\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\algorithm\algobase.h">
+      <Filter>src\algorithm</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
