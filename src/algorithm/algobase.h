@@ -24,7 +24,7 @@ namespace TinySTL {
 	template<class _Ty,
 		class _Pr>
 		const _Ty& max(const _Ty& _Left, const _Ty& _Right, _Pr _Pred)
-	{	//由_Pred决定“大小比较”标准
+	{	//由_Pr决定“大小比较”标准
 		return (_Pred(_Left, _Right)) ? _Right : _Left;
 	}
 
@@ -49,12 +49,12 @@ namespace TinySTL {
 	函 数 名：iter_swap
 	函数作用：交换两个迭代器所指对象
 	******************************************************/
-	template<class _FowIt1,
-		class _FowIt2> inline
-		void iter_swap(_FowIt1 _Left, _FowIt2 _Right)
+	template<class _FwdIt1,
+		class _FwdIt2> inline
+		void iter_swap(_FwdIt1 _Left, _FwdIt2 _Right)
 	{	//交换两个迭代器所指对象
 		TinySTL::swap(*_Left, *_Right);
-		//typename iterator_traits<_FowIt1>::value_type _Tmp = *_Left;
+		//typename iterator_traits<_FwdIt1>::value_type _Tmp = *_Left;
 		//*_Left = *_Right;
 		//*_Right = _Tmp;
 	}
@@ -81,9 +81,9 @@ namespace TinySTL {
 	函 数 名：fill
 	函数作用：将[_First,_Last)内的所有元素改填新值
 	******************************************************/
-	template<class _FowIt,
+	template<class _FwdIt,
 		class _Ty>
-		void fill(_FowIt _First, _FowIt _Last, _Ty _Val)
+		void fill(_FwdIt _First, _FwdIt _Last, _Ty _Val)
 	{
 		for (; _First != _Last; ++_First)
 		{

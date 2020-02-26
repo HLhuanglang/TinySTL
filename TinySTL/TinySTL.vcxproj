@@ -71,6 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>.\build</OutDir>
+    <IntDir>.\build\obj</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -154,6 +156,9 @@
     <ClInclude Include="..\src\fundation\utility.h" />
     <ClInclude Include="..\test\lib\redbud\io\color.h" />
     <ClInclude Include="..\test\lib\redbud\platform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\test\test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

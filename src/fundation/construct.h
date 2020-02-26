@@ -1,6 +1,9 @@
 /**************************************************************
 名称：construct.h
 作用：负责对象的构造和析构
+说明：提供4个通用API
+	construct(指针)		construct(指针，值)
+	destory(指针)		destory(指针，值）
 **************************************************************/
 
 #ifndef CONSTRUCT_H
@@ -12,39 +15,39 @@
 namespace TinySTL {
 	
 	template<typename T1>
-	inline void construct(T1* pointer) {
-		new(pointer) T1();
+	inline void construct(T1* _Ptr) {
+		new(_Ptr) T1();
 	}
 	
 	template<typename T1, typename T2>
-	inline void construct(T1 *pointer, const T2& value) {
-		new(pointer) T1(value);
+	inline void construct(T1 *_Ptr, const T2& _Val) {
+		new(_Ptr) T1(_Val);
 	}
 	
 	template<typename T>
-	inline void destory(T *pointer) {
-		pointer->~T();
+	inline void destory(T *_Ptr) {
+		_Ptr->~T();
 	}
 
-	template<typename InputIterator>
-	inline void _destory(InputIterator first, InputIterator last, __true_type) {
+	template<typename _InIt>
+	inline void Pstar_destory(_InIt _First, _InIt _Last, __true_type _True) {
 		//内置类型，析构与否都无所谓，所以不做处理
 	}
 
-	template<typename InputIterator>
-	inline void _destory(InputIterator first, InputIterator last, __false_type) {
+	template<typename _InIt>
+	inline void Pstar_destory(_InIt _First, _InIt _Last, __false_type _False) {
 		//不是内置类型，属于用户自定义类型，需要析构释放资源
-		while (first != last)
+		while (_First != _Last)
 		{
-			destory(&*first); //因为迭代器都是指针，*first取得内容，再用&取得地址
-			++first;
+			destory(&*_First); //*_First取得内容，再用&取得地址
+			++_First;
 		}
 	}
 
-	template<typename InputIterator>
-	inline void destory(InputIterator firsrt, InputIterator last) {
-		typedef typename __type_traits<InputIterator>::is_POD_type		IS_POD_TYPE;
-		_destory(firsrt, last, IS_POD_TYPE);
+	template<typename _InIt>
+	inline void destory(_InIt _First, _InIt _Last) {
+		typedef typename __type_traits<_InIt>::is_POD_type		IS_POD_TYPE;
+		Pstar_destory(_First, _Last, IS_POD_TYPE()/*括号可以省略*/);
 	}
 
 } //namespace TinySTL
