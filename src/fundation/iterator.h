@@ -213,18 +213,130 @@ namespace TinySTL {
 	template<class Iterator>
 	class reverse_iterator {
 	public:
-		typedef Iterator iterator_type;
-		typedef typename iterator_traits<Iterator>::iterator_category iterator_category;
-		typedef typename iterator_traits<Iterator>::value_type value_type;
-		typedef typename iterator_traits<Iterator>::difference_type difference_type;
-		typedef typename iterator_traits<Iterator>::pointer pointer;
-		typedef typename iterator_traits<Iterator>::reference reference;
-		typedef const pointer const_pointer;
-		typedef const reference const_reference;
+		using iterator_category = typename TinySTL::iterator_traits<Iterator>::iterator_category;
+		using value_type = typename TinySTL::iterator_traits<Iterator>::value_type;
+		using differece_type = typename TinySTL::iterator_traits<Iterator>::difference_type;
+		using pointer = typename TinySTL::iterator_traits<Iterator>::pointer;
+		using reference = typename TinySTL::iterator_traits<Iterator>::reference;
 
-	protected:
-		typedef Iterator 
+		using iterator_type = Iterator;
+		using self = reverse_iterator<Iterator>;
+	private:
+		Iterator Cur;
+
+	public:
+		//构造函数
+		reverse_iterator() = default;
+		explicit reverse_iterator(iterator_type iter) : Cur(iter) {}
+		reverse_iterator(const self& _Right) : Cur(_Right.Cur) {}
+
+	public:
+		//获取对应的正向迭代器
+		iterator_type base() const
+		{
+			return Cur;
+		}
+
+		reference operator*() const 
+		{
+			Iterator _Temp = Cur;
+			return *--_Temp;
+		}
+
+		pointer operator->() const
+		{
+			return &(operator*());
+		}
+
+		self& operator++()
+		{
+			--Cur;
+			return *this;
+		}
+
+		self& operator++(int)
+		{
+			self _Temp = *this;
+			--Cur;
+			return _Temp;
+		}
+
+		self& operator--()
+		{
+			++Cur;
+			return *this;
+		}
+
+		self& operator--(int)
+		{
+			self _Temp = *this;
+			++Cur;
+			return _Temp;
+		}
+
+		self& operator+(differece_type n) const
+		{
+			return self(Cur - n);
+		}
+
+		self& operator+=(differece_type n) const
+		{
+			Cur -= n;
+			return *this;
+		}
+
+		self& operator-(differece_type n)const
+		{
+			return self(Cur + n);
+		}
+		
+		self& operator-=(differece_type n) const
+		{
+			Cur += n;
+			return *this;
+		}
+
+		reference operator[](differece_type n) const
+		{
+			return *(*this + n);
+		}
 	};
+	//重载
+	template<class Iter>
+	typename TinySTL::reverse_iterator<Iter>::difference_type
+		operator-(const reverse_iterator<Iter>& _Left, const reverse_iterator<Iter>& _Right){
+		return _Right.base() - _Left.base();
+	}
+
+	template<class Iter>
+	bool operator==(const reverse_iterator<Iter>& _Left, const reverse_iterator<Iter>& _Right){
+		return _Right.base() == _Left.base();
+	}
+
+	template<class Iter>
+	bool operator!=(const reverse_iterator<Iter>& _Left, const reverse_iterator<Iter>& _Right) {
+		return !(_Left == _Right);
+	}
+
+	template<class Iter>
+	bool operator<(const reverse_iterator<Iter>& _Left, const reverse_iterator<Iter>& _Right) {
+		return _Right.base() < _Left.base();
+	}
+
+	template<class Iter>
+	bool operator>(const reverse_iterator<Iter>& _Left, const reverse_iterator<Iter>& _Right) {
+		return _Right < _Left;
+	}
+
+	template<class Iter>
+	bool operator<=(const reverse_iterator<Iter>& _Left, const reverse_iterator<Iter>& _Right) {
+		return !(_Right < _Left);
+	}
+
+	template<class Iter>
+	bool operator>=(const reverse_iterator<Iter>& _Left, const reverse_iterator<Iter>& _Right) {
+		return !(_Left < _Right);
+	}
 
 } //namespace TinySTL
 #endif // !ITERATOR_H
