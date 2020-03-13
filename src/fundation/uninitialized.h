@@ -9,6 +9,8 @@
 #include"type_traits.h"
 #include"construct.h"
 #include"iterator.h"
+#include"../algorithm/algorithm.h"
+
 #include<cstring>
 namespace TinySTL {
 	/*****************************************************

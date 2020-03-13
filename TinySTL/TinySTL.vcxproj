@@ -156,9 +156,13 @@
     <ClInclude Include="..\src\fundation\utility.h" />
     <ClInclude Include="..\test\lib\redbud\io\color.h" />
     <ClInclude Include="..\test\lib\redbud\platform.h" />
+    <ClInclude Include="..\test\test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TinySTL 说明文档.docx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

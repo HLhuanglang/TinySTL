@@ -71,10 +71,16 @@
     <ClInclude Include="..\src\algorithm\algobase.h">
       <Filter>src\algorithm</Filter>
     </ClInclude>
+    <ClInclude Include="..\test\test.h">
+      <Filter>test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\test.cpp">
       <Filter>test</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TinySTL 说明文档.docx" />
   </ItemGroup>
 </Project>
