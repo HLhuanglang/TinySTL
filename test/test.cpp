@@ -1,8 +1,8 @@
-
-#include"../src/container/vector.h"
-
+#include"algorithm_test.h"
 
 int main()
 {
-	TinySTL::vector<int> test(10);
+	using namespace TinySTL::test;
+	RUN_ALL_TESTS();
+	return 0;
 }

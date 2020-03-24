@@ -154,6 +154,7 @@
     <ClInclude Include="..\src\fundation\type_traits.h" />
     <ClInclude Include="..\src\fundation\uninitialized.h" />
     <ClInclude Include="..\src\fundation\utility.h" />
+    <ClInclude Include="..\test\algorithm_test.h" />
     <ClInclude Include="..\test\lib\redbud\io\color.h" />
     <ClInclude Include="..\test\lib\redbud\platform.h" />
     <ClInclude Include="..\test\test.h" />

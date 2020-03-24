@@ -34,7 +34,7 @@ private:
 	iterator Iter_first; //用三个迭代器来定位一个vector
 	iterator Iter_last;
 	iterator Iter_end;
-	using data_allocator = TinySTL::allocator<T>;	//类的别名，用来直接访问静态方法
+	using data_allocator = TinySTL::allocator<T>;	//类的别名，使用data_allocator:: 来直接访问静态方法
 
 public:
 	/*vector API manual*/
@@ -119,12 +119,38 @@ vector<T>::vector(const size_type _Nsize, const value_type& _Val) {
 	Iter_end = Iter_last;
 }
 
-//template<class T>
-//template<class InIt>
-//vector<T>::vector(InIt _First, InIt _Last) {
-//	TinySTL::uninitialized_copy(_First, _Last, Iter_first);
-//}
+template<class T>
+template<class InIt>
+vector<T>::vector(InIt _First, InIt _Last) {
+	TinySTL::uninitialized_copy(_First, _Last, Iter_first);
+}
 
+template<class T>
+vector<T>::vector(const vector& _Other) {
+	size_t _Nsize = _Other.size();
+	Iter_first = data_allocator::allocate(_Nsize);
+	TinySTL::uninitialized_copy(_Other.begin(), _Other.end(), Iter_first);
+}
+
+template<class T>
+vector<T>::vector(vector&& _Other) {
+	Iter_first = _Other.Iter_first;
+	Iter_last = _Other.Iter_last;
+	Iter_end = _Other.Iter_end;
+	_Other.Iter_first = nullptr;
+	_Other.Iter_last = nullptr;
+	_Other.Iter_end = nullptr;
+}
+
+
+template<class T>
+vector<T>& vector<T>::operator=(const vector& _Other) {	/*赋值操作符*/
+	//TODO
+}
+template<class T>
+vector<T>& vector<T>::operator=(vector&& _Other) {	/*移动赋值操作符*/
+	//TODO
+}
 
 template<class T>
 vector<T>::~vector()
@@ -149,7 +175,15 @@ typename vector<T>::size_type vector<T>::max_size() const noexcept {
 	return static_cast<size_type>((-1)/sizeof(T));
 }
 
+template<class T>
+typename vector<T>::size_type vector<T>::capacity() const noexcept {
+	return Iter_end - Iter_first;
+}
 
+template<class T>
+void vector<T>::reserve(size_type _Newcapacity) {
+	//TODO
+}
 
 
 //重载操作符

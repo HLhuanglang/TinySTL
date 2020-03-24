@@ -27,11 +27,18 @@ namespace TinySTL {
 	template<typename _InIt, typename _FwdIt>
 	_FwdIt Pstar_uninitialized_copy_aux(_InIt _First, _InIt _Last,
 		_FwdIt _Result, __false_type) {
-		int i = 0;
-		for (; _First != _Last; ++_First, ++i) {
-			construct((_Result + i), *_First);
+		_FwdIt _Tmp = _Result;
+		try
+		{
+			for (; _First != _Last; ++_First, ++_Tmp)
+				TinySTL::construct(&*_Tmp, *_First);	/*可能抛出bad_alloc异常*/
 		}
-		return (_Result + i);
+		catch (...)
+		{
+			for (; _Result != _Tmp; ++_Result)
+				TinySTL::destory(&*++_Result);
+		}
+		return _Tmp;
 	}
 
 	template<typename _InIt, typename _FwdIt>
@@ -74,11 +81,17 @@ namespace TinySTL {
 
 	template<typename _FwdIt , typename Size, typename T>
 	_FwdIt Pstar_uninitialized_fill_n_aux(_FwdIt _First, Size _Count, const T& _Val, __false_type) {
-		int i = 0;
-		for (; i != _Count; ++i) {
-			construct((T*)(_First + i), _Val);
+		Size _Tmp = _Count;
+		try
+		{
+			for (; _Tmp > 0; _Tmp--, _First++)
+				TinySTL::construct(&*_First, _Val);
 		}
-		return (_First + i);
+		catch (...)
+		{
+			for (; _Tmp != _Count; _Tmp++, _First--)
+				TinySTL::destory(&*_First);
+		}
 	}
 
 	template<typename _FwdIt, typename Size, typename T>

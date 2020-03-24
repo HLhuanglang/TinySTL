@@ -26,6 +26,7 @@ namespace TinySTL {
 	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
 	//input_iterator
+	//迭代器所指对象，不允许外界改变，read only
 	template<class T, class Distance>
 	struct input_iterator {
 		typedef input_iterator_tag	iterator_category;
@@ -36,6 +37,7 @@ namespace TinySTL {
 	};
 
 	//output_iterator
+	//write only
 	template <class T, class Distance>
 	struct output_iterator {
 		typedef output_iterator_tag	iterator_category;
@@ -46,6 +48,7 @@ namespace TinySTL {
 	};
 
 	//forward_iterator
+	//允许“写入型”算法在此种迭代器所形成的区间上进行读写操作
 	template <class T, class Distance>
 	struct forward_iterator {
 		typedef forward_iterator_tag	iterator_category;
@@ -56,6 +59,7 @@ namespace TinySTL {
 	};
 
 	//bidirectional_iterator
+	//可双向移动，能逆向访问迭代器区间内的元素,不可跳跃访问
 	template <class T, class Distance>
 	struct bidirectional_iterator {
 		typedef bidirectional_iterator_tag	iterator_category;
@@ -66,6 +70,7 @@ namespace TinySTL {
 	};
 
 	//random_access_iterator
+	//涵盖所有指针能力，p+n,p-n等
 	template <class T, class Distance>
 	struct random_access_iterator {
 		typedef random_access_iterator_tag	iterator_category;
@@ -144,13 +149,17 @@ namespace TinySTL {
 
 	//迭代器的value type
 	template<typename Iterator>
-	inline typename iterator_traits<Iterator>::value_type
+	inline typename iterator_traits<Iterator>::value_type*
 		value_type(const Iterator&)
 	{
 		return static_cast<typename iterator_traits<Iterator>::value_type*>(0);
 	}
 
-	//计算迭代器之间的距离
+/**************************************************************************
+函 数 名：distance
+函数作用：计算两个迭代器之间的距离
+返 回 值：
+**************************************************************************/
 	template<class _InIt>
 	typename iterator_traits<_InIt>::difference_type
 		distance(_InIt _First, _InIt _Last) 
@@ -174,13 +183,18 @@ namespace TinySTL {
 	//distance的random_access_iterator_tag版本
 	template <class _RanIt>
 	typename iterator_traits<_RanIt>::difference_type
-		Pstar_distance(_RanIt _First, _RanIt _Last,
-			random_access_iterator_tag)
+		Pstar_distance(_RanIt _First, _RanIt _Last, random_access_iterator_tag)
 	{	/*如果不是iterator种类不是random类型，假设是farward，则会调用上面的input版本，因为farward继承自input*/
 		return (_Last - _First);
 	}
 
-	//迭代器前进算法
+/**************************************************************************
+函 数 名：advance
+函数作用：使迭代器iter前进n个距离
+返 回 值：无
+注 意 点：n的正负决定是前进还是后退，正：前进，负：后退
+**************************************************************************/
+
 	template<class _InIt, class _Distance>
 	inline void advance(_InIt& i, _Distance n)
 	{
@@ -189,7 +203,7 @@ namespace TinySTL {
 
 	template<class _InIt, class _Distance>
 	inline void Pstar_advance(_InIt& i, _Distance n, input_iterator_tag)
-	{
+	{	/*advance算法对forward_iter和input_iterator效果是一样的，由于继承关系，可只实现input_iterator*/
 		while (n--) ++i;
 	}
 

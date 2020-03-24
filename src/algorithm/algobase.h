@@ -6,6 +6,7 @@
 #define ALGOBASE_H
 
 #include"../fundation/utility.h"
+#include"../fundation/type_traits.h"
 #include<algorithm>
 
 
@@ -24,7 +25,7 @@ namespace TinySTL {
 	template<class _Ty,
 		class _Pr>
 		const _Ty& max(const _Ty& _Left, const _Ty& _Right, _Pr _Pred)
-	{	//由_Pr决定“大小比较”标准
+	{	//由_Pred决定“大小比较”标准
 		return (_Pred(_Left, _Right)) ? _Right : _Left;
 	}
 
@@ -106,6 +107,49 @@ namespace TinySTL {
 		return _First;
 	}
 
+
+	/**************************************************************************
+	函 数 名：copy
+	函数作用：将[_First,_Last)复制到[_Result,_Result+(_Last-_First))区间
+	返 回 值：返回目标区间起始地址
+	**************************************************************************/
+	template<class _InIt,
+		class _OutIt>
+		_OutIt copy(_InIt _First, _InIt _Last, _OutIt _Result)
+	{
+		return _copy(_First, _Last, _Result, value_type(_First));
+	}
+
+	template<class _InIt,
+		class _OutIt,
+		class T>
+		_OutIt _copy(_InIt _First, _InIt _Last, _OutIt _Result, T*)
+	{
+		typedef typename __type_traits<T>::is_POD_type IS_POD;
+		return Pstar_copy(_First, _Last, _Result, IS_POD());
+	}
+
+	template<class _InIt,
+		class _OutIt>
+		_OutIt Pstar_copy(_InIt _First, _InIt _Last, _OutIt _Result, __true_type)
+	{
+		auto _Dis = distance(_First, _Last);
+		memcpy(_Result, _First, sizeof(*_First) * _Dis);
+		advance(_Result, _Dis);
+		return _Result;
+	}
+
+	template<class _InIt,
+		class _OutIt>
+		_OutIt Pstar_copy(_InIt _First, _InIt _Last, _OutIt _Result, __false_type)
+	{
+		while (_First != _Last) {
+			*_Result = *_First;
+			_Result++;
+			_First++;
+		}
+		return _Result;
+	}
 	/******************************************************
 	函 数 名：lexicographical_compare
 	函数作用：
