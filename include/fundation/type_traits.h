@@ -1,9 +1,24 @@
-/*******************************************************************************************
-名称：type_traits
-作用：萃取型别的特性，判断该型别是否具有 默认构造函数、copy构造函数、赋值操作符、POD类型等。
-说明：
-	使用的仍然是C99标准中的typedef，C++11中使用using
-*******************************************************************************************/
+/*! @file
+*********************************************************************
+<PRE>
+模块名       : 通用
+文件名       : type_traits
+相关文件     : 无
+文件实现功能 : 类型萃取器
+作者         : 派大星Pstar
+版本         : 1.0
+---------------------------------------------------------------------
+多线程安全性 : <是/否>[，说明]
+异常时安全性 : <是/否>[，说明]
+---------------------------------------------------------------------
+备注         : __is_integer<T>作用是检查T是否为整数类型
+---------------------------------------------------------------------
+修改记录 :
+日 期        版本     修改人              修改内容
+2020/4/27    1.0     派大星Pstar			   创建
+</PRE>
+********************************************************************/
+
 #ifndef TYPE_TRAITS_H
 #define TYPE_TRAITS_H
 
@@ -144,57 +159,58 @@ struct __type_traits<T*> {
 	typedef __true_type    has_trivial_destructor;
 	typedef __true_type    is_POD_type;
 };
-	//判断是否为 int 类型
-	template <class Type>
-	struct __is_integer {
-		typedef __false_type	is_integer;
-	};
 
-	template<> struct __is_integer<bool> {
-		typedef __true_type		is_integer;
-	};
+//判断是否为 int 类型
+template <class Type>
+struct __is_integer {
+	typedef __false_type	is_integer;
+};
 
-	template<> struct __is_integer<char> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<bool> {
+	typedef __true_type		is_integer;
+};
 
-	template<> struct __is_integer<signed char> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<char> {
+	typedef __true_type		is_integer;
+};
 
-	template<> struct __is_integer<unsigned char> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<signed char> {
+	typedef __true_type		is_integer;
+};
 
-	template<> struct __is_integer<short> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<unsigned char> {
+	typedef __true_type		is_integer;
+};
 
-	template<> struct __is_integer<unsigned short> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<short> {
+	typedef __true_type		is_integer;
+};
 
-	template<> struct __is_integer<int> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<unsigned short> {
+	typedef __true_type		is_integer;
+};
 
-	template<> struct __is_integer<unsigned int> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<int> {
+	typedef __true_type		is_integer;
+};
 
-	template<> struct __is_integer<long> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<unsigned int> {
+	typedef __true_type		is_integer;
+};
 
-	template<> struct __is_integer<unsigned long> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<long> {
+	typedef __true_type		is_integer;
+};
 
-	template<> struct __is_integer<long long> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<unsigned long> {
+	typedef __true_type		is_integer;
+};
 
-	template<> struct __is_integer<unsigned long long> {
-		typedef __true_type		is_integer;
-	};
+template<> struct __is_integer<long long> {
+	typedef __true_type		is_integer;
+};
+
+template<> struct __is_integer<unsigned long long> {
+	typedef __true_type		is_integer;
+};
 #endif // !TYPE_TRAITS_H

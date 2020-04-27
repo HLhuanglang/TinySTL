@@ -1,7 +1,7 @@
 #ifndef TEST_H
 #define TEST_H
 
-#include"lib/redbud/io/color.h"
+#include"../3rd/lib/redbud/io/color.h"
 
 #include<ctime>
 #include<vector>

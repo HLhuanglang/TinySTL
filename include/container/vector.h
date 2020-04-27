@@ -106,14 +106,16 @@ vector<T>::vector()
 }
 
 template<class T>
-vector<T>::vector(const size_type _Nsize) {
+vector<T>::vector(const size_type _Nsize) 
+{
 	Iter_first = data_allocator::allocate(_Nsize);
 	Iter_last = TinySTL::uninitialized_fill_n(Iter_first, _Nsize, value_type());
 	Iter_end = Iter_last;
 }
 
 template<class T>
-vector<T>::vector(const size_type _Nsize, const value_type& _Val) {
+vector<T>::vector(const size_type _Nsize, const value_type& _Val) 
+{
 	Iter_first = data_allocator::allocate(_Nsize);
 	Iter_last = TinySTL::uninitialized_fill_n(Iter_first, _Nsize, _Val);
 	Iter_end = Iter_last;
@@ -121,19 +123,22 @@ vector<T>::vector(const size_type _Nsize, const value_type& _Val) {
 
 template<class T>
 template<class InIt>
-vector<T>::vector(InIt _First, InIt _Last) {
+vector<T>::vector(InIt _First, InIt _Last) 
+{
 	TinySTL::uninitialized_copy(_First, _Last, Iter_first);
 }
 
 template<class T>
-vector<T>::vector(const vector& _Other) {
+vector<T>::vector(const vector& _Other)
+{
 	size_t _Nsize = _Other.size();
 	Iter_first = data_allocator::allocate(_Nsize);
 	TinySTL::uninitialized_copy(_Other.begin(), _Other.end(), Iter_first);
 }
 
 template<class T>
-vector<T>::vector(vector&& _Other) {
+vector<T>::vector(vector&& _Other)
+{
 	Iter_first = _Other.Iter_first;
 	Iter_last = _Other.Iter_last;
 	Iter_end = _Other.Iter_end;
@@ -144,11 +149,13 @@ vector<T>::vector(vector&& _Other) {
 
 
 template<class T>
-vector<T>& vector<T>::operator=(const vector& _Other) {	/*赋值操作符*/
+vector<T>& vector<T>::operator=(const vector& _Other)
+{	/*赋值操作符*/
 	//TODO
 }
 template<class T>
-vector<T>& vector<T>::operator=(vector&& _Other) {	/*移动赋值操作符*/
+vector<T>& vector<T>::operator=(vector&& _Other) 
+{	/*移动赋值操作符*/
 	//TODO
 }
 
@@ -161,27 +168,32 @@ vector<T>::~vector()
 
 
 template<class T>
-typename vector<T>::size_type vector<T>::size() const noexcept {
+typename vector<T>::size_type vector<T>::size() const noexcept 
+{
 	return static_cast<size_type>(Iter_last - Iter_first);
 }
 
 template<class T>
-bool vector<T>::empty() const noexcept {
+bool vector<T>::empty() const noexcept 
+{
 	return Iter_first == Iter_end;
 }
 
 template<class T>
-typename vector<T>::size_type vector<T>::max_size() const noexcept {
+typename vector<T>::size_type vector<T>::max_size() const noexcept
+{
 	return static_cast<size_type>((-1)/sizeof(T));
 }
 
 template<class T>
-typename vector<T>::size_type vector<T>::capacity() const noexcept {
+typename vector<T>::size_type vector<T>::capacity() const noexcept 
+{
 	return Iter_end - Iter_first;
 }
 
 template<class T>
-void vector<T>::reserve(size_type _Newcapacity) {
+void vector<T>::reserve(size_type _Newcapacity) 
+{
 	//TODO
 }
 
@@ -189,33 +201,39 @@ void vector<T>::reserve(size_type _Newcapacity) {
 //重载操作符
 //常量对象只能调用常函数（不对成员做出改动）
 template<class T>
-bool operator==(const vector<T>& _Left,const vector<T>& _Right) {
+bool operator==(const vector<T>& _Left,const vector<T>& _Right)
+{
 	return _Left.size() == _Right.size() &&
 		TinySTL::equal(_Left.begin(), _Left.Iter_end(), _Right.begin());
 }
 
 template<class T>
-bool operator!=(const vector<T>& _Left, const vector<T>& _Right) {
+bool operator!=(const vector<T>& _Left, const vector<T>& _Right) 
+{
 	return !(_Left == _Right);
 }
 
 template<class T>
-bool operator<(const vector<T>& _Left, const vector<T>& _Right) {
+bool operator<(const vector<T>& _Left, const vector<T>& _Right) 
+{
 	return TinySTL::lexicographical_compare(_Left.begin(), _Left.end(), _Right.begin(), _Right.end());
 }
 
 template<class T>
-bool operator>(const vector<T>& _Left, const vector<T>& _Right) {
+bool operator>(const vector<T>& _Left, const vector<T>& _Right) 
+{
 	return _Right < _Left;
 }
 
 template<class T>
-bool operator<=(const vector<T>& _Left, const vector<T>& _Right) {
+bool operator<=(const vector<T>& _Left, const vector<T>& _Right) 
+{
 	return !(_Right < _Left);	//A<=B -> !(A>B)
 }
 
 template<class T>
-bool operator>=(const vector<T>& _Left, const vector<T>& _Right) {
+bool operator>=(const vector<T>& _Left, const vector<T>& _Right) 
+{
 	return !(_Left < _Right);
 }
 

@@ -3,7 +3,8 @@
 
 
 #include"../test/test.h"
-#include"../src/algorithm/algorithm.h"
+#include"../include/algorithm/algorithm.h"
+
 
 namespace TinySTL {
 namespace test {
