@@ -22,7 +22,7 @@
 *	使用方法：包含该头文件，#include"alloc.h"
 分配内存TinySTL::alloc::allocate()、释放内存TinySTL::alloc::deallocate()
 ********************************************************************/
-
+#pragma once
 #ifndef ALLOC_H
 #define ALLOC_H
 
@@ -190,7 +190,7 @@ inline size_t alloc::Pstar_round_up(IN size_t bytes)
 }
 
 //根据区块大小，选择第_Size个free lists
-inline size_t alloc::Pstar_freelist_index(size_t bytes)
+inline size_t alloc::Pstar_freelist_index(IN size_t bytes)
 {
 	return (((bytes)+__ALIGN - 1) / __ALIGN - 1); //(30+7)/7-1=4-1=3
 }

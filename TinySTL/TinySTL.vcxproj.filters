@@ -5,9 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="test\lib">
-      <UniqueIdentifier>{52944df1-10d2-4212-90e5-bfe837d34e11}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
@@ -20,9 +17,6 @@
     </Filter>
     <Filter Include="include\container">
       <UniqueIdentifier>{4a2b7be8-f2dd-433f-9959-9df4bd2b8246}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{50cbd1b9-85f4-44f7-917e-21450bab108e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -74,19 +68,10 @@
     <ClInclude Include="..\include\fundation\utility.h">
       <Filter>include\fundation</Filter>
     </ClInclude>
-    <ClInclude Include="..\3rd\lib\redbud\platform.h">
-      <Filter>test\lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rd\lib\redbud\io\color.h">
-      <Filter>test\lib</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\test.cpp">
       <Filter>test</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\container_impl\vector.cpp">
-      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

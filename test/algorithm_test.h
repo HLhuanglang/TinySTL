@@ -2,8 +2,8 @@
 #define ALGORITHM_TEST_H
 
 
-#include"../test/test.h"
-#include"../include/algorithm/algorithm.h"
+#include"test.h"
+#include"algorithm/algorithm.h"
 
 
 namespace TinySTL {

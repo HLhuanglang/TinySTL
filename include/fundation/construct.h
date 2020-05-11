@@ -48,26 +48,26 @@ inline void destory(IN T *_Ptr)
 }
 
 template<typename _InIt>
-inline void destory(IN _InIt _First,IN _InIt _Last)
-{
-	typedef typename __type_traits<_InIt>::is_POD_type		IS_POD_TYPE;
-	Pstar_destory(_First, _Last, IS_POD_TYPE()/*括号可以省略*/);
-}
-
-template<typename _InIt>
-inline void Pstar_destory(IN _InIt _First, IN _InIt _Last, DUMMY __true_type _True) 
+inline void Pstar_destory( _InIt _First,  _InIt _Last,  __true_type _True)
 {
 	//内置类型，析构与否都无所谓，所以不做处理
 }
 
 template<typename _InIt>
-inline void Pstar_destory(IN _InIt _First, IN _InIt _Last, DUMMY __false_type _False) 
+inline void Pstar_destory( _InIt _First,  _InIt _Last,  __false_type _False)
 {	//不是内置类型，属于用户自定义类型，需要析构释放资源
 	while (_First != _Last)
 	{
 		destory(&*_First); //*_First取得内容，再用&取得地址
 		++_First;
 	}
+}
+
+template<typename _InIt>
+inline void destory(IN _InIt _First, IN _InIt _Last)
+{
+	typedef typename __type_traits<_InIt>::is_POD_type	IS_POD_TYPE;
+	Pstar_destory(_First, _Last, IS_POD_TYPE());
 }
 
 } //namespace TinySTL

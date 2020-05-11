@@ -7,8 +7,8 @@
 
 #include<deque>
 
-#include"../fundation/iterator.h"
-#include"../fundation/allocator.h"
+#include"fundation/iterator.h"
+#include"fundation/allocator.h"
 
 namespace TinySTL {
 /**************************************************************************************/

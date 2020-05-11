@@ -57,8 +57,8 @@ public:
 	using const_reference = const T&;
 	using const_pointer = const T*;
 public:
-	static T* allocate();	//申请一个对象大小的内存
-	static T* allocate(IN size_t _Count);	//申请_Count个对象大小的内存
+	static T* allocate();	//申请一个对象大小的内存,返回内存的起始地址
+	static T* allocate(IN size_t _Count);	//申请_Count个对象大小的内存，返回内存的起始地址
 	static void deallocate(IN T* _Ptr);	//释放_Ptr指向的一个对象大小的内存
 	static void deallocate(IN T* _Ptr, IN size_t _Count);	//释放_Ptr指向的_Count个对象大小的内存
 

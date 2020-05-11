@@ -30,6 +30,7 @@ namespace TinySTL {
 #define IN		/*输入参数*/
 #define OUT		/*输出参数*/
 #define DUMMY	/*哑元参数，仅帮助重载*/
+#define FUNC	/*函数对象*/
 
 } //namespace TinySTL
 #endif // !EXCEPTDEF_H
