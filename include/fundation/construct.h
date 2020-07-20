@@ -1,73 +1,102 @@
-/*! @file
-*********************************************************************
-<PRE>
-Ä£¿éÃû       : ÄÚ´æ·ÖÅäÆ÷
-ÎÄ¼şÃû       : construct.h
-Ïà¹ØÎÄ¼ş     : allocator.h
-ÎÄ¼şÊµÏÖ¹¦ÄÜ : Ìá¹©¶ÔÏó¹¹ÔìÓëÎö¹¹¹¦ÄÜº¯Êı
-×÷Õß         : ÅÉ´óĞÇPstar
-°æ±¾         : 1.0
+/*********************************************************************
+æ¨¡å—å		: å†…å­˜åˆ†é…å™¨
+æ–‡ä»¶å		: construct.h
+ç›¸å…³æ–‡ä»¶		: allocator.h
+æ–‡ä»¶å®ç°åŠŸèƒ½	: æä¾›å¯¹è±¡æ„é€ ä¸ææ„åŠŸèƒ½å‡½æ•°
+ä½œè€…			: HLhuanglang
+ç‰ˆæœ¬			: 1.0
 ---------------------------------------------------------------------
-¶àÏß³Ì°²È«ĞÔ : ·ñ£¬ÔİÎ´¿¼ÂÇ
-Òì³£Ê±°²È«ĞÔ : ·ñ£¬
+å¤šçº¿ç¨‹å®‰å…¨æ€§ : å¦ï¼Œæš‚æœªè€ƒè™‘
+å¼‚å¸¸æ—¶å®‰å…¨æ€§ : å¦ï¼Œ
 ---------------------------------------------------------------------
-±¸×¢         : 
+å¤‡æ³¨			: 
 ---------------------------------------------------------------------
-ĞŞ¸Ä¼ÇÂ¼ :
-ÈÕ ÆÚ        °æ±¾     ĞŞ¸ÄÈË            ĞŞ¸ÄÄÚÈİ
-2020/04/27   1.0   ÅÉ´óĞÇPstar			 ´´½¨
-</PRE>
+ä¿®æ”¹è®°å½•		:
+æ—¥ æœŸ		ç‰ˆæœ¬		ä¿®æ”¹äºº			ä¿®æ”¹å†…å®¹
+2020/04/27	1.0		HLhuanglang		åˆ›å»º
 ********************************************************************/
-
-
 #ifndef CONSTRUCT_H
 #define CONSTRUCT_H
 
 #include"type_traits.h"
 #include"exceptdef.h"
+
 #include<new>  //for placement new
 
 namespace TinySTL {
-	
-template<typename T1>
-inline void construct(IN T1* _Ptr) 
+/******************************************************
+å‡½ æ•° å	ï¼šconstruct
+å‡½æ•°ä½œç”¨	ï¼šåœ¨_Ptrå¤„æ„é€ å¯¹è±¡
+å‡½æ•°å‚æ•°	ï¼š
+		[IN]	_Ptr:æŒ‡å‘ç›®æ ‡å†…å­˜åœ°å€çš„æŒ‡é’ˆ
+è¿” å› å€¼	ï¼šæ— 
+******************************************************/
+template<typename _Ty1>
+inline void construct(IN _Ty1* _Ptr) 
 {
-	new(_Ptr) T1();
-}
-	
-template<typename T1, typename T2>
-inline void construct(IN T1 *_Ptr, IN const T2& _Val) 
-{
-	new(_Ptr) T1(_Val);
-}
-	
-template<typename T>
-inline void destory(IN T *_Ptr) 
-{
-	_Ptr->~T();
+	new(_Ptr) _Ty1();
 }
 
-template<typename _InIt>
-inline void Pstar_destory( _InIt _First,  _InIt _Last,  __true_type _True)
+
+/******************************************************
+å‡½ æ•° å	ï¼šconstruct
+å‡½æ•°ä½œç”¨	ï¼šåœ¨_Ptrå¤„æ„é€ å¯¹è±¡,å¯¹è±¡å€¼ä¸º_Val
+å‡½æ•°å‚æ•°	ï¼š
+		[IN]	_Ptr:æŒ‡å‘ç›®æ ‡å†…å­˜åœ°å€çš„æŒ‡é’ˆ
+è¿” å› å€¼	ï¼šæ— 
+******************************************************/
+template<typename _Ty1, typename _Ty2>
+inline void construct(IN _Ty1 *_Ptr, IN const _Ty2& _Val) 
 {
-	//ÄÚÖÃÀàĞÍ£¬Îö¹¹Óë·ñ¶¼ÎŞËùÎ½£¬ËùÒÔ²»×ö´¦Àí
+	new(_Ptr) _Ty1(_Val);
 }
 
-template<typename _InIt>
-inline void Pstar_destory( _InIt _First,  _InIt _Last,  __false_type _False)
-{	//²»ÊÇÄÚÖÃÀàĞÍ£¬ÊôÓÚÓÃ»§×Ô¶¨ÒåÀàĞÍ£¬ĞèÒªÎö¹¹ÊÍ·Å×ÊÔ´
-	while (_First != _Last)
-	{
-		destory(&*_First); //*_FirstÈ¡µÃÄÚÈİ£¬ÔÙÓÃ&È¡µÃµØÖ·
-		++_First;
-	}
+
+
+/******************************************************
+å‡½ æ•° å	ï¼šdestory
+å‡½æ•°ä½œç”¨	ï¼šåœ¨_Ptrææ„å¯¹è±¡ 
+å‡½æ•°å‚æ•°	ï¼š
+		[IN]	_Ptr:æŒ‡å‘ç›®æ ‡å†…å­˜åœ°å€çš„æŒ‡é’ˆ
+è¿” å› å€¼	ï¼šæ— 
+******************************************************/
+template<typename _Ty1>
+inline void destory(IN _Ty1 *_Ptr) 
+{
+	_Ptr->~_Ty1();
 }
 
+
+
+/******************************************************
+å‡½ æ•° å	ï¼šdestory
+å‡½æ•°ä½œç”¨	ï¼šææ„[_First, _Last)åŒºé—´å†…çš„å¯¹è±¡
+å‡½æ•°å‚æ•°	ï¼š
+		[IN]	_First:ç›®æ ‡åŒºé—´èµ·å§‹åœ°å€
+		[IN]	_Last :ç›®æ ‡åŒºé—´ç»“æŸåœ°å€
+è¿” å› å€¼	ï¼šæ— 
+******************************************************/
 template<typename _InIt>
 inline void destory(IN _InIt _First, IN _InIt _Last)
 {
 	typedef typename __type_traits<_InIt>::is_POD_type	IS_POD_TYPE;
-	Pstar_destory(_First, _Last, IS_POD_TYPE());
+	_destory(_First, _Last, IS_POD_TYPE());
+}
+
+template<typename _InIt>
+inline void _destory( _InIt _First,  _InIt _Last,  __true_type _True)
+{
+	//å†…ç½®ç±»å‹ï¼Œææ„ä¸å¦éƒ½æ— æ‰€è°“ï¼Œæ‰€ä»¥ä¸åšå¤„ç†
+}
+
+template<typename _InIt>
+inline void _destory( _InIt _First,  _InIt _Last,  __false_type _False)
+{	//ä¸æ˜¯å†…ç½®ç±»å‹ï¼Œå±äºç”¨æˆ·è‡ªå®šä¹‰ç±»å‹ï¼Œéœ€è¦ææ„é‡Šæ”¾èµ„æº
+	while (_First != _Last)
+	{
+		destory(&*_First); //*_Firstå–å¾—å†…å®¹ï¼Œå†ç”¨&å–å¾—åœ°å€
+		++_First;
+	}
 }
 
 } //namespace TinySTL

@@ -1,39 +1,34 @@
-/*! @file
-*********************************************************************
-<PRE>
-Ä£¿éÃû       : Í¨ÓÃ
-ÎÄ¼şÃû       : utility.h
-Ïà¹ØÎÄ¼ş     : -
-ÎÄ¼şÊµÏÖ¹¦ÄÜ : Ìá¹©pair½á¹¹
-×÷Õß         : ÅÉ´óĞÇPstar
-°æ±¾         : 1.0
+/*********************************************************************
+æ–‡ä»¶å		: utility.h
+ç›¸å…³æ–‡ä»¶		: -
+æ–‡ä»¶å®ç°åŠŸèƒ½	: æä¾›pairç»“æ„
+ä½œè€…			: HLhuanglang
+ç‰ˆæœ¬			: 1.1
 ---------------------------------------------------------------------
-¶àÏß³Ì°²È«ĞÔ : <ÊÇ/·ñ>[£¬ËµÃ÷]
-Òì³£Ê±°²È«ĞÔ : <ÊÇ/·ñ>[£¬ËµÃ÷]
+å¤šçº¿ç¨‹å®‰å…¨æ€§	: <æ˜¯/å¦>[ï¼Œè¯´æ˜]
+å¼‚å¸¸æ—¶å®‰å…¨æ€§	: <æ˜¯/å¦>[ï¼Œè¯´æ˜]
 ---------------------------------------------------------------------
-±¸×¢         : -
+å¤‡æ³¨			: -
 ---------------------------------------------------------------------
-ĞŞ¸Ä¼ÇÂ¼ :
-ÈÕ ÆÚ        °æ±¾     ĞŞ¸ÄÈË              ĞŞ¸ÄÄÚÈİ
-2020/04/27   1.0     ÅÉ´óĞÇPstar			 ´´½¨
-2020/05/04   1.1	 ÅÉ´óĞÇPstar			 ½«³£ÓÃËã·¨·ÅÈëalgobase.hÖĞ
-</PRE>
-********************************************************************/
+ä¿®æ”¹è®°å½•:
+æ—¥ æœŸ        ç‰ˆæœ¬     ä¿®æ”¹äºº				ä¿®æ”¹å†…å®¹
+2020/04/27   1.0     HLhuanglang		åˆ›å»º
+2020/05/04   1.1	 HLhuanglang		å°†è¯¥æ–‡ä»¶ä¸­çš„ç®—æ³•ç§»å…¥algobase.hä¸­
+**********************************************************************/
 #ifndef UTILITY_H
 #define UTILITY_H
 namespace TinySTL {
-template<class _Ty1,
-class _Ty2>
+template<class _Ty1,class _Ty2>
 struct pair
 {
 typedef _Ty1	first_type;
 typedef _Ty2	second_type;
 
-//³ÉÔ±±äÁ¿
+//æˆå‘˜å˜é‡
 first_type		first;
 second_type		second;
 
-//¹¹Ôìº¯Êı
+//æ„é€ å‡½æ•°
 pair()
 	: first(_Ty1()),second(_Ty2())
 	{
@@ -54,58 +49,50 @@ template<class _Other1,
 
 };	//end of class pair
 
+template<class _Ty1, class _Ty2>
+pair<_Ty1, _Ty2> make_pair(const _Ty1& _Val1, const _Ty2& _Val2)
+{
+	return pair<_Ty1, _Ty2>(_Val1, _Val2);
+}
 
-//ÖØÔØ±È½Ï²Ù×÷·û
-template<class _Ty1,
-class _Ty2>
+//==================================================================[[è¿ç®—ç¬¦é‡è½½
+template<class _Ty1, class _Ty2>
 bool operator==(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right)
-{	//Èç¹ûpairÄÚËùÓĞÔªËØ¶¼ÏàµÈ£¬ÔòÁ½¸öpair¶ÔÏóÊÓÎªÏàµÈ
+{	//å¦‚æœpairå†…æ‰€æœ‰å…ƒç´ éƒ½ç›¸ç­‰ï¼Œåˆ™ä¸¤ä¸ªpairå¯¹è±¡è§†ä¸ºç›¸ç­‰
 	return (_Left.first == _Right.first && _Left.second == _Right.second);
 }
 
-template<class _Ty1,
-class _Ty2>
+template<class _Ty1, class _Ty2>
 bool operator!=(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right)
 {
 	return (!(_Left == _Right));
 }
 
-template<class _Ty1,
-class _Ty2>
+template<class _Ty1, class _Ty2>
 bool operator<(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>&_Right)
-{	//ÓÅÏÈ±È½Ïfirst£¬firstÏàµÈÊ±²Å±È½Ïsecond
+{	//ä¼˜å…ˆæ¯”è¾ƒfirstï¼Œfirstç›¸ç­‰æ—¶æ‰æ¯”è¾ƒsecond
 	return (_Left.first < _Right.first ||
 		(!(_Right.first < _Left.first) && _Left.second < _Right.second));
 }
 
-template<class _Ty1,
-class _Ty2>
+template<class _Ty1, class _Ty2>
 bool operator>(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right)
 {
 	return (_Right < _Left);
 }
 
-template<class _Ty1,
-class _Ty2>
+template<class _Ty1, class _Ty2>
 bool operator<=(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right)
 {
 	return (!(_Right < _Left));
 }
 
-template<class _Ty1,
-class _Ty2>
+template<class _Ty1, class _Ty2>
 bool operator>=(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right)
 {
 	return (!(_Left < _Right));
 }
-
-
-template<class _Ty1,
-class _Ty2>
-pair<_Ty1, _Ty2> make_pair(const _Ty1& _Val1, const _Ty2& _Val2)
-{
-	return pair<_Ty1, _Ty2>(_Val1, _Val2);
-}
+//==================================================================è¿ç®—ç¬¦é‡è½½]]
 
 }//namespace TinySTL
 #endif // !UTILITY_H

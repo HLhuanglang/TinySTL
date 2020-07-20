@@ -1,22 +1,19 @@
-/*! @file
-*********************************************************************
-<PRE>
-Ä£¿éÃû       : Í¨ÓÃ
-ÎÄ¼şÃû       : functional.h
-Ïà¹ØÎÄ¼ş     : ÎŞ
-ÎÄ¼şÊµÏÖ¹¦ÄÜ : Ìá¹©³£ÓÃµÄº¯Êı¶ÔÏó
-×÷Õß         : ÅÉ´óĞÇPstar
-°æ±¾         : 1.0
+/*********************************************************************
+æ¨¡å—å		: é€šç”¨
+æ–‡ä»¶å		: functional.h
+ç›¸å…³æ–‡ä»¶		: æ— 
+æ–‡ä»¶å®ç°åŠŸèƒ½	: æä¾›å¸¸ç”¨çš„å‡½æ•°å¯¹è±¡
+ä½œè€…			: HLhuanglang
+ç‰ˆæœ¬			: 1.0
 ---------------------------------------------------------------------
-¶àÏß³Ì°²È«ĞÔ : <ÊÇ/·ñ>[£¬ËµÃ÷]
-Òì³£Ê±°²È«ĞÔ : <ÊÇ/·ñ>[£¬ËµÃ÷]
+å¤šçº¿ç¨‹å®‰å…¨æ€§	: <æ˜¯/å¦>[ï¼Œè¯´æ˜]
+å¼‚å¸¸æ—¶å®‰å…¨æ€§	: <æ˜¯/å¦>[ï¼Œè¯´æ˜]
 ---------------------------------------------------------------------
-±¸×¢         : 
+å¤‡æ³¨			: 
 ---------------------------------------------------------------------
-ĞŞ¸Ä¼ÇÂ¼ :
-ÈÕ ÆÚ       °æ±¾     ĞŞ¸ÄÈË             ĞŞ¸ÄÄÚÈİ
-2020/4/27   1.0     ÅÉ´óĞÇPstar		   ´´½¨
-</PRE>
+ä¿®æ”¹è®°å½•		:
+æ—¥ æœŸ       ç‰ˆæœ¬		ä¿®æ”¹äºº			ä¿®æ”¹å†…å®¹
+2020/4/27	1.0		HLhuanglang		åˆ›å»º
 ********************************************************************/
 
 #ifndef FUNCTIONAL_H
@@ -24,7 +21,7 @@
 
 namespace TinySTL {
 
-//ÓÃÓÚÒ»Ôªº¯ÊıµÄ²ÎÊıĞÍ±ğºÍ·µ»ØÖµĞÍ±ğ
+//ç”¨äºä¸€å…ƒå‡½æ•°çš„å‚æ•°å‹åˆ«å’Œè¿”å›å€¼å‹åˆ«
 template<class Arg, class Result>
 struct unarg_function
 {
@@ -32,7 +29,7 @@ struct unarg_function
 	typedef Result		result_type;
 };
 
-//ÓÃÓÚ³ÊÏÖ¶şÔªº¯ÊıµÄµÚÒ»²ÎÊıĞÍ±ğ¡¢µÚ¶ş²ÎÊıĞÍ±ğ£¬ÒÔ¼°·µ»ØÖµĞÍ±ğ
+//ç”¨äºå‘ˆç°äºŒå…ƒå‡½æ•°çš„ç¬¬ä¸€å‚æ•°å‹åˆ«ã€ç¬¬äºŒå‚æ•°å‹åˆ«ï¼Œä»¥åŠè¿”å›å€¼å‹åˆ«
 template<class Arg1, class Arg2, class Result>
 struct binary_function
 {
@@ -42,108 +39,112 @@ struct binary_function
 };
 
 
-/*******************************************ËãÊõÀà·Âº¯Êı**********************************/
-//º¯Êı¶ÔÏó£º¼Ó·¨ plus<T>
+/*******************************************ç®—æœ¯ç±»ä»¿å‡½æ•°**********************************/
+//å‡½æ•°å¯¹è±¡ï¼šåŠ æ³• plus<T>
 template<class T>
 struct plus : public binary_function<T, T, T> 
 {
 	T operator()(const T&x, const T& y) const { return x + y; }
 };
 
-//º¯Êı¶ÔÏó£º¼õ·¨minus<T>
+//å‡½æ•°å¯¹è±¡ï¼šå‡æ³•minus<T>
 template<class T>
 struct minus : public binary_function<T, T, T> 
 {
 	T operator()(const T&x, const T& y) const { return x - y; }
 };
 
-//º¯Êı¶ÔÏó£º³Ë·¨multiples<T>
+//å‡½æ•°å¯¹è±¡ï¼šä¹˜æ³•multiples<T>
 template<class T>
 struct multiplies : public binary_function<T, T, T> 
 {
 	T operator()(const T&x, const T& y) const { return x*y; }
 };
 
-//º¯Êı¶ÔÏó£º³ı·¨divides<T>
+//å‡½æ•°å¯¹è±¡ï¼šé™¤æ³•divides<T>
 template<class T>
 struct divides : public binary_function<T, T, T> 
 {
 	T operator()(const T&x, const T& y) const { return x/y; }
 };
 
-//º¯Êı¶ÔÏó£ºÈ¡Ä£modulus<T>
+//å‡½æ•°å¯¹è±¡ï¼šå–æ¨¡modulus<T>
 template<class T>
 struct modulus : public binary_function<T, T, T> 
 {
 	T operator()(const T&x, const T& y) const { return x%y; }
 };
 
-//º¯Êı¶ÔÏó£º·ñ¶¨negate<T>
+//å‡½æ•°å¯¹è±¡ï¼šå¦å®šnegate<T>
 template<class T>
 struct negate : public unarg_function<T,T> 
 {
 	T operator()(const T&x ) const { return -x; }
 };
 
-/*******************************************¹ØÏµÔËËãÀà·Âº¯Êı**********************************/
-//º¯Êı¶ÔÏó£ºµÈÓÚ equal_to
+
+
+/*******************************************å…³ç³»è¿ç®—ç±»ä»¿å‡½æ•°**********************************/
+//å‡½æ•°å¯¹è±¡ï¼šç­‰äº equal_to
 template<class T>
 struct equal_to : public binary_function<T, T, bool>
 {
 	bool  operator()(const T&x, const T&y) const { return x == y; }
 };
 
-//º¯Êı¶ÔÏó£º²»µÈÓÚnot_equal_to
+//å‡½æ•°å¯¹è±¡ï¼šä¸ç­‰äºnot_equal_to
 template<class T>
 struct not_equal_to : public binary_function<T, T, bool> 
 {
 	bool operator()(const T&x, const T&y) const { return x != y; }
 };
 
-// º¯Êı¶ÔÏó£º´óÓÚgreater
+// å‡½æ•°å¯¹è±¡ï¼šå¤§äºgreater
 template <class T>
 struct greater :public binary_function<T, T, bool>
 {
 	bool operator()(const T& x, const T& y) const { return x > y; }
 };
 
-// º¯Êı¶ÔÏó£ºĞ¡ÓÚless
+// å‡½æ•°å¯¹è±¡ï¼šå°äºless
 template <class T>
 struct less :public binary_function<T, T, bool>
 {
 	bool operator()(const T& x, const T& y) const { return x < y; }
 };
 
-// º¯Êı¶ÔÏó£º´óÓÚµÈÓÚgreater_equal
+// å‡½æ•°å¯¹è±¡ï¼šå¤§äºç­‰äºgreater_equal
 template <class T>
 struct greater_equal :public binary_function<T, T, bool>
 {
 	bool operator()(const T& x, const T& y) const { return x >= y; }
 };
 
-// º¯Êı¶ÔÏó£ºĞ¡ÓÚµÈÓÚless_equal
+// å‡½æ•°å¯¹è±¡ï¼šå°äºç­‰äºless_equal
 template <class T>
 struct less_equal :public binary_function<T, T, bool>
 {
 	bool operator()(const T& x, const T& y) const { return x <= y; }
 };
 
-/*******************************************Âß¼­Àà·Âº¯Êı**********************************/
-//º¯Êı¶ÔÏó£ºÂß¼­ÔËËãand logical_and<T>
+
+
+/*******************************************é€»è¾‘ç±»ä»¿å‡½æ•°**********************************/
+//å‡½æ•°å¯¹è±¡ï¼šé€»è¾‘è¿ç®—and logical_and<T>
 template<class T>
 struct logical_and : public binary_function<T, T, bool> 
 {
 	bool operator()(const T&x, const T&y) const { return x && y; }
 };
 
-//º¯Êı¶ÔÏó£ºÂß¼­ÔËËãor logical_or<T>
+//å‡½æ•°å¯¹è±¡ï¼šé€»è¾‘è¿ç®—or logical_or<T>
 template<class T>
 struct logical_or : public binary_function<T, T, bool> 
 {
 	bool operator()(const T&x, const T&y) const { return x || y; }
 };
 
-//º¯Êı¶ÔÏó£ºÂß¼­ÔËËãnot logical_not<T>
+//å‡½æ•°å¯¹è±¡ï¼šé€»è¾‘è¿ç®—not logical_not<T>
 template<class T>
 struct logical_not : public unarg_function<T,bool> 
 {

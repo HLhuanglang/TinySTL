@@ -95,7 +95,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\MyProject\TinySTL_hl\3rd;G:\MyProject\TinySTL_hl\include;G:\MyProject\TinySTL_hl\3rd;G:\MyProject\TinySTL_hl\test;G:\MyProject\TinySTL_hl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>G:\_个人项目\TinySTL_hl\3rd;G:\_个人项目\TinySTL_hl\include;G:\MyProject\TinySTL_hl\3rd;G:\MyProject\TinySTL_hl\test;G:\MyProject\TinySTL_hl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,7 +109,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\MyProject\TinySTL_hl\3rd;G:\MyProject\TinySTL_hl\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>G:\_个人项目\TinySTL_hl\3rd;G:\_个人项目\TinySTL_hl\include;</AdditionalIncludeDirectories>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +125,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\MyProject\TinySTL_hl\3rd;G:\MyProject\TinySTL_hl\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>G:\_个人项目\TinySTL_hl\3rd;G:\_个人项目\TinySTL_hl\include;</AdditionalIncludeDirectories>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +143,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\MyProject\TinySTL_hl\3rd;G:\MyProject\TinySTL_hl\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>G:\_个人项目\TinySTL_hl\3rd;G:\_个人项目\TinySTL_hl\include;</AdditionalIncludeDirectories>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
