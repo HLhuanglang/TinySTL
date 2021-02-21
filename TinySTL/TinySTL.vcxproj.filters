@@ -68,9 +68,15 @@
     <ClInclude Include="..\include\fundation\utility.h">
       <Filter>include\fundation</Filter>
     </ClInclude>
+    <ClInclude Include="..\test\Integer_test.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\container\Integer.h">
+      <Filter>include\container</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\test\test.cpp">
+    <ClCompile Include="..\test\main.cpp">
       <Filter>test</Filter>
     </ClCompile>
   </ItemGroup>

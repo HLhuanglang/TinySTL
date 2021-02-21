@@ -95,7 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\_个人项目\TinySTL_hl\3rd;G:\_个人项目\TinySTL_hl\include;G:\MyProject\TinySTL_hl\3rd;G:\MyProject\TinySTL_hl\test;G:\MyProject\TinySTL_hl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\3rd;..\include;G:\MyProject\TinySTL_hl\3rd;G:\MyProject\TinySTL_hl\test;G:\MyProject\TinySTL_hl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\_个人项目\TinySTL_hl\3rd;G:\_个人项目\TinySTL_hl\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\3rd;..\include;</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -157,6 +157,7 @@
     <ClInclude Include="..\include\algorithm\algobase.h" />
     <ClInclude Include="..\include\algorithm\algorithm.h" />
     <ClInclude Include="..\include\container\deque.h" />
+    <ClInclude Include="..\include\container\Integer.h" />
     <ClInclude Include="..\include\container\list.h" />
     <ClInclude Include="..\include\container\vector.h" />
     <ClInclude Include="..\include\fundation\alloc.h" />
@@ -169,10 +170,11 @@
     <ClInclude Include="..\include\fundation\uninitialized.h" />
     <ClInclude Include="..\include\fundation\utility.h" />
     <ClInclude Include="..\test\algorithm_test.h" />
+    <ClInclude Include="..\test\Integer_test.h" />
     <ClInclude Include="..\test\test.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\test\test.cpp" />
+    <ClCompile Include="..\test\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
