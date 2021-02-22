@@ -18,11 +18,11 @@
     <Filter Include="include\container">
       <UniqueIdentifier>{4a2b7be8-f2dd-433f-9959-9df4bd2b8246}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{a89731d1-517c-4561-b78a-01147787d9fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\test\test.h">
-      <Filter>test</Filter>
-    </ClInclude>
     <ClInclude Include="..\test\algorithm_test.h">
       <Filter>test</Filter>
     </ClInclude>
@@ -74,10 +74,25 @@
     <ClInclude Include="..\include\container\Integer.h">
       <Filter>include\container</Filter>
     </ClInclude>
+    <ClInclude Include="..\utils\hldb_log.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\test\UnitTest.h">
+      <Filter>test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\main.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="..\utils\hldb_log.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\test\UnitTest.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
   </ItemGroup>
 </Project>

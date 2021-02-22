@@ -1,14 +1,14 @@
-# Visual Studio ç”Ÿæˆäº†å…·æœ‰ C++ è®¾ç½®çš„ .editorconfig æ–‡ä»¶ã€‚
+# Visual Studio Éú³ÉÁË¾ßÓĞ C++ ÉèÖÃµÄ .editorconfig ÎÄ¼ş¡£
 root = true
 
 [*.{c++,cc,cpp,cppm,cxx,h,h++,hh,hpp,hxx,inl,ipp,ixx,tlh,tli}]
 
-# Visual C++ ä»£ç æ ·å¼è®¾ç½®
+# Visual C++ ´úÂëÑùÊ½ÉèÖÃ
 
 cpp_generate_documentation_comments = xml
 
-# Visual C++ æ ¼å¼è®¾ç½®
-
+# Visual C++ ¸ñÊ½ÉèÖÃ
+charset = utf-8
 cpp_indent_braces = false
 cpp_indent_multi_line_relative_to = innermost_parenthesis
 cpp_indent_within_parentheses = indent
