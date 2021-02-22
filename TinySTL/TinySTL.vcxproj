@@ -159,6 +159,7 @@
     <ClInclude Include="..\include\container\deque.h" />
     <ClInclude Include="..\include\container\Integer.h" />
     <ClInclude Include="..\include\container\list.h" />
+    <ClInclude Include="..\include\container\string.h" />
     <ClInclude Include="..\include\container\vector.h" />
     <ClInclude Include="..\include\fundation\alloc.h" />
     <ClInclude Include="..\include\fundation\allocator.h" />
