@@ -80,6 +80,9 @@
     <ClInclude Include="..\test\UnitTest.h">
       <Filter>test</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\container\string.h">
+      <Filter>include\container</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\main.cpp">

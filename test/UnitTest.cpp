@@ -50,23 +50,23 @@ void UnitTest::StartTest() {
 +----------------------+
 	)";
   std::cout << green_fg << end_msg << white_fg << std::endl;
-  std::cout << "|通过案例数|" << test_case_succeed_num_ << std::endl;
-  std::cout << "|失败案例数|" << test_case_failed_num_ << std::endl;
+  std::cout << "|Passed Cases  |" << test_case_succeed_num_ << std::endl;
+  std::cout << "|Un-Passed Case|" << test_case_failed_num_ << std::endl;
 }
 
 void UnitTest::DisplayResult(const char* test_case_name, size_t passed,
                              size_t failed, bool result) {
-  std::string result_str = "失败";
+  std::string result_str = "PASSED";
   if (result) {
-    result_str = "成功";
+    result_str = "UN-PASSED";
   }
   std::cout << "+----------------------+" << std::endl;
-  std::cout << "|测试名称|" << test_case_name << std::endl;
+  std::cout << "|TestCaseName|" << test_case_name << std::endl;
   std::cout << "+----------------------+" << std::endl;
-  std::cout << "|测试结果|" << result_str << std::endl;
+  std::cout << "|TestResult  |" << result_str << std::endl;
   std::cout << "+----------------------+" << std::endl;
-  std::cout << "|成功数量|" << green_fg << passed << white_fg << std::endl;
+  std::cout << "|Success     |" << green_fg << passed << white_fg << std::endl;
   std::cout << "+----------------------+" << std::endl;
-  std::cout << "|失败数量|" << red_fg << failed << white_fg << std::endl;
+  std::cout << "|Failure     |" << red_fg << failed << white_fg << std::endl;
   std::cout << "+----------------------+" << std::endl;
 }
