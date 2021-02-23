@@ -1,4 +1,4 @@
-ï»¿#ifndef DEQUE_H
+#ifndef DEQUE_H
 #define DEQUE_H
 
 #include <deque>
@@ -19,7 +19,7 @@ struct deque_buf_size {
 template <class _Ty, class _Ref, class _Ptr>
 struct _Deque_iterator
     : public TinySTL::iterator<TinySTL::bidirectional_iterator_tag,
-                               _Ty> {  //ç»§æ‰¿ä»¥åä¸‹é¢çš„å‹åˆ«åº”è¯¥å¯ä»¥ä¸ç”¨å†™äº†å§
+                               _Ty> {  //¼Ì³ĞÒÔºóÏÂÃæµÄĞÍ±ğÓ¦¸Ã¿ÉÒÔ²»ÓÃĞ´ÁË°É
   typedef _Ty value_type;
   typedef _Ptr pointer;
   typedef _Ref reference;
@@ -34,41 +34,41 @@ struct _Deque_iterator
   typedef _Deque_iterator<_Ty, const _Ty&, const _Ty*> const_iterator;
   typedef _Deque_iterator<_Ty, _Ty&, _Ty*> self;
 
-  //ä»¥ä¸‹å››ä¸ªæˆå‘˜æ„æˆä¸€ä¸ªè¿­ä»£å™¨
-  value_pointer _Cur;    //æŒ‡å‘æ‰€å±ç¼“å†²åŒºçš„å½“å‰å…ƒç´ 
-  value_pointer _First;  //æŒ‡å‘æ‰€å±ç¼“å†²åŒºçš„å¤´éƒ¨
-  value_pointer _Last;   //æŒ‡å‘æ‰€å±ç¼“å†²åŒºçš„å°¾éƒ¨
-  map_node_pointer _Node;  //æŒ‡å‘mapä¸ŠæŸä¸€ä¸ªç»“ç‚¹ï¼Œè¡¨ç¤ºç¼“å†²åŒºæ‰€åœ¨çš„ç»“ç‚¹
+  //ÒÔÏÂËÄ¸ö³ÉÔ±¹¹³ÉÒ»¸öµü´úÆ÷
+  value_pointer _Cur;    //Ö¸ÏòËùÊô»º³åÇøµÄµ±Ç°ÔªËØ
+  value_pointer _First;  //Ö¸ÏòËùÊô»º³åÇøµÄÍ·²¿
+  value_pointer _Last;   //Ö¸ÏòËùÊô»º³åÇøµÄÎ²²¿
+  map_node_pointer _Node;  //Ö¸ÏòmapÉÏÄ³Ò»¸ö½áµã£¬±íÊ¾»º³åÇøËùÔÚµÄ½áµã
 
-  //æ„é€ ã€å¤åˆ¶ã€ç§»åŠ¨å‡½æ•°
+  //¹¹Ôì¡¢¸´ÖÆ¡¢ÒÆ¶¯º¯Êı
   _Deque_iterator() = default;
 
   _Deque_iterator(const iterator& _Right)
       : _Cur(_Right._Cur),
         _First(_Right._First),
         _Last(_Right._Last),
-        _Node(_Right._Node) {  //æ‹·è´æ„é€ å‡½æ•°
+        _Node(_Right._Node) {  //¿½±´¹¹Ôìº¯Êı
   }
 
   _Deque_iterator(const const_iterator& _Right)
       : _Cur(_Right._Cur),
         _First(_Right._First),
         _Last(_Right._Last),
-        _Node(_Right._Node) {  //æ‹·è´æ„é€ å‡½æ•°
+        _Node(_Right._Node) {  //¿½±´¹¹Ôìº¯Êı
   }
 
   _Deque_iterator(iterator&& _Right)
       : _Cur(_Right._Cur),
         _First(_Right._First),
         _Last(_Right._Last),
-        _Node(_Right._Node) {  //ç§»åŠ¨å‡½æ•°
+        _Node(_Right._Node) {  //ÒÆ¶¯º¯Êı
     _Right._Cur = nullptr;
     _Right._First = nullptr;
     _Right._Last = nullptr;
     _Right._Node = nullptr;
   }
 
-  self& operator=(const iterator& _Right) {  //å¤åˆ¶è¿­ä»£å™¨
+  self& operator=(const iterator& _Right) {  //¸´ÖÆµü´úÆ÷
     if (this != &_Right) {
       _Cur = _Right._Cur;
       _First = _Right._First;
@@ -78,11 +78,11 @@ struct _Deque_iterator
     return *this;
   }
 
-  //é‡è½½è¿ç®—ç¬¦
+  //ÖØÔØÔËËã·û
   reference operator*() const { return *_Cur; }
   pointer operator->() const { return _Cur; }
 
-  self& operator++() {  //++å‰ç½®
+  self& operator++() {  //++Ç°ÖÃ
     ++_Cur;
     if (_Cur == _Last) {
       _set_node(_Node + 1);
@@ -91,7 +91,7 @@ struct _Deque_iterator
     return *this;
   }
 
-  self operator++(int) {  //åç½®++
+  self operator++(int) {  //ºóÖÃ++
     self _Tmp = *this;
     ++*this;
     return _Tmp;
@@ -112,28 +112,28 @@ struct _Deque_iterator
     return _Tmp;
   }
 
-  self& += (difference_type n) {  //å‘å‰è·³nä¸ªå…ƒç´ ï¼ˆå¦‚æœnä¸ºè´Ÿï¼Œåˆ™å‘åè·³ï¼‰
+  self& += (difference_type n) {  //ÏòÇ°Ìøn¸öÔªËØ£¨Èç¹ûnÎª¸º£¬ÔòÏòºóÌø£©
     difference_type _Off = n + (_Cur - _First);
     if (_Off >= 0 &&
-        _Off < difference_type(buffer_size())) {  //ç›®æ ‡ä½ç½®ä»»ç„¶åœ¨åŒä¸€ä¸ªç¼“å†²åŒºå†…
+        _Off < difference_type(buffer_size())) {  //Ä¿±êÎ»ÖÃÈÎÈ»ÔÚÍ¬Ò»¸ö»º³åÇøÄÚ
       _Cur += n;
-    } else {  //ç›®æ ‡ä½ç½®ä¸åœ¨åŒä¸€ä¸ªç¼“å†²åŒº
+    } else {  //Ä¿±êÎ»ÖÃ²»ÔÚÍ¬Ò»¸ö»º³åÇø
       difference_type _Node_offset =
           _Off > 0 ? _Off / difference_type(buffer_size())
                    : -difference_type((-_Off - 1) / buffer_size()) - 1;
-      _set_node(_Node + _Node_offset); /*ç¡®å®šæ­£ç¡®çš„ç»“ç‚¹ä½ç½®*/
+      _set_node(_Node + _Node_offset); /*È·¶¨ÕıÈ·µÄ½áµãÎ»ÖÃ*/
       _Cur = _First + (_Off - _Node_offset * difference_type(buffer_size()));
     }
     return *this;
   }
 
   self operator+(
-      difference_type n) const {  //ç”¨èµ‹å€¼å½¢å¼ï¼ˆop=ï¼‰å–ä»£å…¶å•ç‹¬å½¢å¼ï¼ˆopï¼‰
+      difference_type n) const {  //ÓÃ¸³ÖµĞÎÊ½£¨op=£©È¡´úÆäµ¥¶ÀĞÎÊ½£¨op£©
     self _Tmp = *this;
     return _Tmp += n;
   }
 
-  self& operator-=(difference_type n) {  //åˆ©ç”¨operator+=æ¥å®Œæˆ
+  self& operator-=(difference_type n) {  //ÀûÓÃoperator+=À´Íê³É
     return *this += -n;
   }
 
@@ -142,15 +142,15 @@ struct _Deque_iterator
     return _Tmp -= n;
   }
 
-  reference operator[](difference_type n) {  //è°ƒç”¨operator*ã€operator+
+  reference operator[](difference_type n) {  //µ÷ÓÃoperator*¡¢operator+
     return *(*this + n);
-  } /*ä¸åšè¶Šç•Œæ£€æŸ¥*/
+  } /*²»×öÔ½½ç¼ì²é*/
 
-  //é‡è½½æ¯”è¾ƒæ“ä½œç¬¦
+  //ÖØÔØ±È½Ï²Ù×÷·û
   bool operator==(const self& _Right) const { return _Cur == _Right._Cur; }
   bool operator!=(const self& _Right) const { return !(this == _Right); }
   bool operator<(const self& _Right)
-      const {  //å…ˆåˆ¤æ–­ç¼“å†²åŒºé—´æ˜¯å¦ç›¸åŒï¼Œç›¸åŒæ¯”_Curï¼Œä¸åŒæ¯”_Node
+      const {  //ÏÈÅĞ¶Ï»º³åÇø¼äÊÇ·ñÏàÍ¬£¬ÏàÍ¬±È_Cur£¬²»Í¬±È_Node
     return _Node == _Right._Node ? (_Cur < _Right._Cur)
                                  : (_Node < _Right._Node);
   }
@@ -159,7 +159,7 @@ struct _Deque_iterator
   bool operator>=(const self& _Right) const { return !(*this < _Right); }
 
   void _set_node(
-      map_node_pointer _Next_node) {  //æ›´æ¢ç»“ç‚¹(ä¹Ÿå°±æ˜¯æ›´æ¢æ–°çš„ç¼“å†²åŒº)
+      map_node_pointer _Next_node) {  //¸ü»»½áµã(Ò²¾ÍÊÇ¸ü»»ĞÂµÄ»º³åÇø)
     _Node = _Next_node;
     _First = *_Next_node;
     _Last = _First + buffer_size;
@@ -171,12 +171,12 @@ template <class T>
 class deque {
   typedef TinySTL::allocator<T> _Allocator_type;
   typedef TinySTL::allocator<T*>
-      _Map_allocator;  //ç”¨äºç”³è¯·mapï¼ˆmapé‡Œé¢å­˜çš„æ˜¯æŒ‡é’ˆï¼‰
+      _Map_allocator;  //ÓÃÓÚÉêÇëmap£¨mapÀïÃæ´æµÄÊÇÖ¸Õë£©
   typedef TinySTL::allocator<T>
-      _Buffer_allocator;  //ç”¨äºç”³è¯·bufferçš„æ‰€éœ€è¦çš„ç©ºé—´
-  typedef TinySTL::allocator<T> _Data_allocator;  //ç”¨äºåœ¨bufferå†…åˆ›é€ å¯¹è±¡
+      _Buffer_allocator;  //ÓÃÓÚÉêÇëbufferµÄËùĞèÒªµÄ¿Õ¼ä
+  typedef TinySTL::allocator<T> _Data_allocator;  //ÓÃÓÚÔÚbufferÄÚ´´Ôì¶ÔÏó
 
-  //å†…åµŒå‹åˆ«å®šä¹‰(ç”¨_Alloccator_typeä¸»è¦å°±æ˜¯æ–¹ä¾¿ç¼–å†™ã€‚ä¹Ÿåªå¯ä»¥ç›´æ¥å®šä¹‰typedef T
+  //ÄÚÇ¶ĞÍ±ğ¶¨Òå(ÓÃ_Alloccator_typeÖ÷Òª¾ÍÊÇ·½±ã±àĞ´¡£Ò²Ö»¿ÉÒÔÖ±½Ó¶¨Òåtypedef T
   // value_type)
   typedef typename _Allocator_type::value_type value_type;
   typedef typename _Allocator_type::pointer pointer;
@@ -186,24 +186,24 @@ class deque {
   typedef typename _Allocator_type::size_type size_type;
   typedef typename _Allocator_type::difference_type difference_type;
 
-  typedef pointer* map_pointer;  //æŒ‡å‘mapçš„æŒ‡é’ˆ
+  typedef pointer* map_pointer;  //Ö¸ÏòmapµÄÖ¸Õë
   typedef const_pointer* const_map_pointer;
 
-  //è¿­ä»£å™¨å®šä¹‰
+  //µü´úÆ÷¶¨Òå
   typedef _Deque_iterator<T, T&, T*> iterator;
   typedef _Deque_iterator<T, const T&, const T*> const_iterator;
   typedef TinySTL::reverse_iterator<iterator> reverse_iterator;
   typedef TinySTL::reverse_iterator<const_iterator> const_reverse_iterator;
 
  private:
-  //æˆå‘˜å˜é‡å®šä¹‰
-  iterator _Begin;      //æŒ‡å‘ç¬¬ä¸€ä¸ªèŠ‚ç‚¹
-  iterator _End;        //æŒ‡å‘æœ€åä¸€ä¸ªèŠ‚ç‚¹
-  map_pointer _Map;     //æŒ‡å‘ä¸­å¤®æ§åˆ¶åŒºmap
-  size_type _Map_size;  // mapå†…æœ‰å¤šå°‘ä¸ªæŒ‡é’ˆï¼ˆç”¨äºmapæ‰©å®¹ï¼‰
+  //³ÉÔ±±äÁ¿¶¨Òå
+  iterator _Begin;      //Ö¸ÏòµÚÒ»¸ö½Úµã
+  iterator _End;        //Ö¸Ïò×îºóÒ»¸ö½Úµã
+  map_pointer _Map;     //Ö¸ÏòÖĞÑë¿ØÖÆÇømap
+  size_type _Map_size;  // mapÄÚÓĞ¶àÉÙ¸öÖ¸Õë£¨ÓÃÓÚmapÀ©Èİ£©
 
  private:
-  //è¾…åŠ©å‡½æ•°å£°æ˜
+  //¸¨Öúº¯ÊıÉùÃ÷
   map_pointer _create_map(size_type _Count);
   void _create_buffer(map_pointer _Start, map_pointer _End);
   void _map_buffer_init(size_type _nNode);
@@ -211,11 +211,11 @@ class deque {
   void _copy_init(iterator _First, iterator _Last);
 
  public:
-  //æˆå‘˜å‡½æ•°å£°æ˜
+  //³ÉÔ±º¯ÊıÉùÃ÷
   _Allocator_type get_allocator() { return _Allocator_type(); }
 
   /********************************************************************************/
-  //å¯¹è±¡æ„é€ ã€ææ„ã€å¤åˆ¶ã€ç§»åŠ¨
+  //¶ÔÏó¹¹Ôì¡¢Îö¹¹¡¢¸´ÖÆ¡¢ÒÆ¶¯
   deque();
   deque(size_type _Count);
   deque(size_type _Count, value_type _Val);
@@ -229,10 +229,10 @@ class deque {
   ~deque();
 
   /********************************************************************************/
-  //è¿­ä»£å™¨ç›¸å…³
+  //µü´úÆ÷Ïà¹Ø
 
   /********************************************************************************/
-  //å…ƒç´ è®¿é—®ç›¸å…³
+  //ÔªËØ·ÃÎÊÏà¹Ø
   reference operator[](const size_type _Index);
   const_reference operator[](const size_type _Index);
   reference front();
@@ -243,7 +243,7 @@ class deque {
   const_reference at(const size_type _Index);
 
   /********************************************************************************/
-  //å®¹é‡ç›¸å…³
+  //ÈİÁ¿Ïà¹Ø
   size_type size();
   size_type max_size();
   bool empty();
@@ -252,7 +252,7 @@ class deque {
   void shrink_to_fit();
 
   /********************************************************************************/
-  //ä¿®æ”¹å®¹å™¨ç›¸å…³
+  //ĞŞ¸ÄÈİÆ÷Ïà¹Ø
   void clear();
   iterator erase(iterator _Where);
   iterator erase(iterator _First, iterator _Last);
@@ -273,18 +273,18 @@ class deque {
 };  // end of deque class
 
 /********************************************************************************/
-// helper functionå®ç°
+// helper functionÊµÏÖ
 /*
-å‡½æ•°åŠŸèƒ½ï¼š
-å‡½æ•°è¿”å›ï¼š
+º¯Êı¹¦ÄÜ£º
+º¯Êı·µ»Ø£º
 */
 
 template <class T>
 typename deque<T>::map_pointer deque<T>::_create_map(
     size_type
         _Count) { /*
-                  å‡½æ•°åŠŸèƒ½ï¼šåˆ›å»ºä¸€ä¸ªå«æœ‰_Countä¸ªç»“ç‚¹çš„mapï¼ŒåŒæ—¶åˆå§‹åŒ–(nullptr)æ‰€æœ‰ç»“ç‚¹
-                  å‡½æ•°è¿”å›ï¼šè¿”å›ä¸€ä¸ªæŒ‡é’ˆï¼ŒæŒ‡å‘mapé¦–åœ°å€
+                  º¯Êı¹¦ÄÜ£º´´½¨Ò»¸öº¬ÓĞ_Count¸ö½áµãµÄmap£¬Í¬Ê±³õÊ¼»¯(nullptr)ËùÓĞ½áµã
+                  º¯Êı·µ»Ø£º·µ»ØÒ»¸öÖ¸Õë£¬Ö¸ÏòmapÊ×µØÖ·
                   */
   map_pointer _Result = nullptr;
   _Result = _Map_allocator::allocate(_Count);
@@ -299,38 +299,38 @@ void deque<T>::_create_buffer(
     map_pointer _Start,
     map_pointer
         _Finish) { /*
-                   å‡½æ•°åŠŸèƒ½ï¼šä¸º[_Start,
-                   _Finish]åŒºé—´ä¸Šçš„æ¯ä¸€ä¸ªmapç»“ç‚¹ï¼Œåˆ›å»ºä¸€ä¸ªbufferç¼“å†²åŒºï¼ŒæŒ‚è½½åœ¨mapç»“ç‚¹ä¸Šã€‚
-                   å‡½æ•°è¿”å›ï¼šæ— 
+                   º¯Êı¹¦ÄÜ£ºÎª[_Start,
+                   _Finish]Çø¼äÉÏµÄÃ¿Ò»¸ömap½áµã£¬´´½¨Ò»¸öbuffer»º³åÇø£¬¹ÒÔØÔÚmap½áµãÉÏ¡£
+                   º¯Êı·µ»Ø£ºÎŞ
                    */
   map_pointer _Tmp = _Start;
   for (; _Tmp <= _Finish; _Tmp++) {
     *_Tmp = _Buffer_allocator::allocate(
-        buffer_size);  // *_Tmpä»£è¡¨mapç»“ç‚¹çš„å€¼ï¼ˆå°±æ˜¯ä¸ªæŒ‡é’ˆï¼‰
+        buffer_size);  // *_Tmp´ú±ímap½áµãµÄÖµ£¨¾ÍÊÇ¸öÖ¸Õë£©
   }
 }
 
 template <class T>
 void deque<T>::_map_buffer_init(
     size_type _Count) {                             /*
-                                                    å‡½æ•°åŠŸèƒ½ï¼šåˆå§‹åŒ–mapï¼Œä»¥åŠåˆ›å»ºç¼“å†²åŒºæŒ‚è½½åœ¨mapç»“ç‚¹ä¸Š
-                                                    å‡½æ•°å‚æ•°ï¼š_Countç”¨äºè®¡ç®—éœ€è¦åˆ†é…å¤šå°‘ä¸ªç¼“å†²åŒº
+                                                    º¯Êı¹¦ÄÜ£º³õÊ¼»¯map£¬ÒÔ¼°´´½¨»º³åÇø¹ÒÔØÔÚmap½áµãÉÏ
+                                                    º¯Êı²ÎÊı£º_CountÓÃÓÚ¼ÆËãĞèÒª·ÖÅä¶àÉÙ¸ö»º³åÇø
                                                     */
-  const size_type _Node = _Count / buffer_size + 1; /*ç¼“å†²åŒºä¸ªæ•°*/
+  const size_type _Node = _Count / buffer_size + 1; /*»º³åÇø¸öÊı*/
 }
 
 template <class T>
 void deque<T>::_fill_init(size_type _Count, const value_type& _Val) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šåˆå§‹åŒ–å®¹å™¨æ—¶ï¼Œåˆ›å»º_Countä¸ªå€¼ä¸º_Valçš„å…ƒç´ 
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£º³õÊ¼»¯ÈİÆ÷Ê±£¬´´½¨_Count¸öÖµÎª_ValµÄÔªËØ
+  º¯Êı·µ»Ø£ºÎŞ
   */
 
-  // mapã€bufferåˆå§‹åŒ–
-  //è°ƒç”¨uninitialized_fillå¡«å……
+  // map¡¢buffer³õÊ¼»¯
+  //µ÷ÓÃuninitialized_fillÌî³ä
 }
 
 /********************************************************************************/
-//å¯¹è±¡æ„é€ ã€ææ„ã€å¤åˆ¶ã€ç§»åŠ¨å®ç°
+//¶ÔÏó¹¹Ôì¡¢Îö¹¹¡¢¸´ÖÆ¡¢ÒÆ¶¯ÊµÏÖ
 }  // namespace TinySTL
 #endif  // !DEQUE_H

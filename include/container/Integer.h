@@ -1,4 +1,4 @@
-ï»¿#ifndef INTEGER_H
+#ifndef INTEGER_H
 #define INTEGER_H
 
 #include <iostream>
@@ -12,11 +12,11 @@ class Integer {
   Integer();
   Integer(const int &);
 
-  //æ‹·è´æ„é€ å‡½æ•°
-  // 1,ç”¨ä¸€ä¸ªå¯¹è±¡åˆå§‹åŒ–å¦ä¸€ä¸ªå¯¹è±¡,Integer A(B);
-  // 2,åˆ›å»ºå¯¹è±¡æ—¶èµ‹å€¼,Integer A = B;
-  // 3,å‡½æ•°å‚æ•°
-  // 4,å‡½æ•°è¿”å›ç±»å‹ä¸ºIntegeræ—¶[å±€éƒ¨å¯¹è±¡åœ¨å‡½æ•°è¿”å›æ—¶ä¼šè¢«ææ„,ç›¸å½“äºåœ¨å‡½æ•°å¤–é¢æ‹¿ä¸€ä¸ªå¯¹è±¡æ¥æ¥æ”¶å‡½æ•°å†…éƒ¨çš„å¯¹è±¡]
+  //¿½±´¹¹Ôìº¯Êı
+  // 1,ÓÃÒ»¸ö¶ÔÏó³õÊ¼»¯ÁíÒ»¸ö¶ÔÏó,Integer A(B);
+  // 2,´´½¨¶ÔÏóÊ±¸³Öµ,Integer A = B;
+  // 3,º¯Êı²ÎÊı
+  // 4,º¯Êı·µ»ØÀàĞÍÎªIntegerÊ±[¾Ö²¿¶ÔÏóÔÚº¯Êı·µ»ØÊ±»á±»Îö¹¹,Ïàµ±ÓÚÔÚº¯ÊıÍâÃæÄÃÒ»¸ö¶ÔÏóÀ´½ÓÊÕº¯ÊıÄÚ²¿µÄ¶ÔÏó]
   Integer(const Integer &);
   Integer(Integer &&);
   ~Integer();
@@ -164,16 +164,16 @@ Integer &Integer::operator=(const Integer &rhs) {
       this->sign = rhs.sign;
     }
   }
-  return *this;  //ä¸ä¼šè°ƒç”¨æ‹·è´æ„é€ 
+  return *this;  //²»»áµ÷ÓÃ¿½±´¹¹Ôì
 }
 
 // Integer n1;
 // cout<<n1.abs();
-// ä¸Šé¢è¿™ä¸ªn1.abs()å…¶å®ä»£è¡¨ä¸€ä¸ªä¸´æ—¶å¯¹è±¡
+// ÉÏÃæÕâ¸ön1.abs()ÆäÊµ´ú±íÒ»¸öÁÙÊ±¶ÔÏó
 Integer Integer::abs() const {
-  Integer temp = *this;  //èµ‹å€¼å½¢å¼åˆå§‹åŒ–å¯¹è±¡,è°ƒç”¨æ‹·è´æ„é€ 
+  Integer temp = *this;  //¸³ÖµĞÎÊ½³õÊ¼»¯¶ÔÏó,µ÷ÓÃ¿½±´¹¹Ôì
   temp.sign = '+';
-  return temp;  //å¦‚æœå®šä¹‰äº†ç§»åŠ¨æ„é€ ,å°±ä¼šè°ƒç”¨ç§»åŠ¨æ„é€ å‡½æ•°
+  return temp;  //Èç¹û¶¨ÒåÁËÒÆ¶¯¹¹Ôì,¾Í»áµ÷ÓÃÒÆ¶¯¹¹Ôìº¯Êı
 }
 
 void Integer::appendDigit(const char &digit) {
@@ -209,7 +209,7 @@ void Integer::trim() {
   // If the calling object contains all '0' digits,then it must assign the
   // calling object an integer value zero
   bool all_zero_flag = true;
-  int idx = 0;  //ç¬¬ä¸€ä¸ªé0æ•°çš„ä½ç½®
+  int idx = 0;  //µÚÒ»¸ö·Ç0ÊıµÄÎ»ÖÃ
   int old_length = this->length;
   for (int i = 0; i < old_length; i++) {
     if (this->magnitude[i] == '0') {
@@ -397,37 +397,37 @@ Integer Integer::operator+(const Integer &rhs) const {
 
 // A-B, we should consider their sign and size
 // (+)A-(+)B: |(>: A-B,sign='+')|(=:0)|(<:B-A,sign='-')
-// (+)A-(-)B: |(>ã€=ã€<:A+B,sign='+')
-// (-)A-(+)B: |(>ã€=ã€<:A+B,sign='-')
+// (+)A-(-)B: |(>¡¢=¡¢<:A+B,sign='+')
+// (-)A-(+)B: |(>¡¢=¡¢<:A+B,sign='-')
 // (-)A-(-)B: |(>: A-B,sign='-')|(=:0)|(<:B-A,sign='+')
-// Integer Integer::operator-(const Integer &rhs) const {
-//  // todo
-//}
-// Integer Integer::operator*(const Integer &rhs) const {
-//  // todo
-//}
-// Integer Integer::operator/(const Integer &rhs) const {
-//  // todo
-//}
-// Integer Integer::operator%(const Integer &rhs) const {
-//  // todo
-//}
-//
-// Integer Integer::operator+=(const Integer &rhs) {
-//  // todo
-//}
-// Integer Integer::operator-=(const Integer &rhs) {
-//  // todo
-//}
-// Integer Integer::operator*=(const Integer &rhs) {
-//  // todo
-//}
-// Integer Integer::operator/=(const Integer &rhs) {
-//  // todo
-//}
-// Integer Integer::operator%=(const Integer &rhs) {
-//  // todo
-//}
+Integer Integer::operator-(const Integer &rhs) const {
+  // todo
+}
+Integer Integer::operator*(const Integer &rhs) const {
+  // todo
+}
+Integer Integer::operator/(const Integer &rhs) const {
+  // todo
+}
+Integer Integer::operator%(const Integer &rhs) const {
+  // todo
+}
+
+Integer Integer::operator+=(const Integer &rhs) {
+  // todo
+}
+Integer Integer::operator-=(const Integer &rhs) {
+  // todo
+}
+Integer Integer::operator*=(const Integer &rhs) {
+  // todo
+}
+Integer Integer::operator/=(const Integer &rhs) {
+  // todo
+}
+Integer Integer::operator%=(const Integer &rhs) {
+  // todo
+}
 
 bool Integer::operator==(const Integer &rhs) const {
   if (this->sign != rhs.sign) {
@@ -467,37 +467,37 @@ bool Integer::operator<(const Integer &rhs) const { return !(*this > rhs); }
 bool Integer::operator>=(const Integer &rhs) const { return !(*this < rhs); }
 bool Integer::operator<=(const Integer &rhs) const { return !(*this > rhs); }
 
-// Integer operator+(const int &val, const Integer &rhs) {
-//  // todo
-//}
-// Integer operator-(const int &val, const Integer &rhs) {
-//  // todo
-//}
-// Integer operator*(const int &val, const Integer &rhs) {
-//  // todo
-//}
-// Integer operator/(const int &val, const Integer &rhs) {
-//  // todo
-//}
-// Integer operator%(const int &val, const Integer &rhs) {
-//  // todo
-//}
-//
-// Integer operator+=(const int &val, const Integer &rhs) {
-//  // todo
-//}
-// Integer operator-=(const int &val, const Integer &rhs) {
-//  // todo
-//}
-// Integer operator*=(const int &val, const Integer &rhs) {
-//  // todo
-//}
-// Integer operator/=(const int &val, const Integer &rhs) {
-//  // todo
-//}
-// Integer operator%=(const int &val, const Integer &rhs) {
-//  // todo
-//}
+Integer operator+(const int &val, const Integer &rhs) {
+  // todo
+}
+Integer operator-(const int &val, const Integer &rhs) {
+  // todo
+}
+Integer operator*(const int &val, const Integer &rhs) {
+  // todo
+}
+Integer operator/(const int &val, const Integer &rhs) {
+  // todo
+}
+Integer operator%(const int &val, const Integer &rhs) {
+  // todo
+}
+
+Integer operator+=(const int &val, const Integer &rhs) {
+  // todo
+}
+Integer operator-=(const int &val, const Integer &rhs) {
+  // todo
+}
+Integer operator*=(const int &val, const Integer &rhs) {
+  // todo
+}
+Integer operator/=(const int &val, const Integer &rhs) {
+  // todo
+}
+Integer operator%=(const int &val, const Integer &rhs) {
+  // todo
+}
 
 bool operator==(const int &val, const Integer &rhs) {
   Integer temp(val);

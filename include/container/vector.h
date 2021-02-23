@@ -1,4 +1,4 @@
-ï»¿#ifndef VECTOR_H
+#ifndef VECTOR_H
 #define VECTOR_H
 
 #include "algorithm/algorithm.h"
@@ -24,13 +24,13 @@ class vector {
   using const_reverse_iterator = TinySTL::reverse_iterator<const iterator>;
 
  private:
-  iterator Iter_first;  //ç”¨ä¸‰ä¸ªè¿­ä»£å™¨æ¥å®šä½ä¸€ä¸ªvector
+  iterator Iter_first;  //ÓÃÈı¸öµü´úÆ÷À´¶¨Î»Ò»¸övector
   iterator Iter_last;
   iterator Iter_end;
   using data_allocator = TinySTL::allocator<T>;
 
  public:
-  //==================================================================[[å¯¹è±¡åˆ›å»º
+  //==================================================================[[¶ÔÏó´´½¨
   vector();
   explicit vector(const size_type _Nsize);
   vector(const size_type _Nsize, const value_type& _Val);
@@ -41,9 +41,9 @@ class vector {
   vector& operator=(const vector& v);
   vector& operator=(vector&& v);
   ~vector();
-  //==================================================================]]å¯¹è±¡åˆ›å»º
+  //==================================================================]]¶ÔÏó´´½¨
 
-  //==================================================================[[è¿­ä»£å™¨
+  //==================================================================[[µü´úÆ÷
   iterator begin() noexcept { return Iter_first; }
   const_iterator begin() const noexcept { return Iter_first; }
   reverse_iterator rbegin() noexcept { return reverse_iterator(end()); }
@@ -60,9 +60,9 @@ class vector {
   }
   const_iterator cend() const noexcept { return end(); }
   const_reverse_iterator crend() const noexcept { return rend(); }
-  //==================================================================]]è¿­ä»£å™¨
+  //==================================================================]]µü´úÆ÷
 
-  //==================================================================[[å®¹é‡
+  //==================================================================[[ÈİÁ¿
   size_type size() const noexcept;
   bool empty() const noexcept;
   size_type max_size() const noexcept;
@@ -71,9 +71,9 @@ class vector {
   void resize(size_type _Size);
   void resize(size_type _Size, const value_type& _Val);
   void shrink_to_fit();
-  //==================================================================]]å®¹é‡
+  //==================================================================]]ÈİÁ¿
 
-  //==================================================================[[èµ‹å€¼ã€å­˜å–
+  //==================================================================[[¸³Öµ¡¢´æÈ¡
   void assign(size_type _Size, const value_type& _Val);
   template <class InIt>
   void assign(InIt _First, InIt _Last);
@@ -94,17 +94,17 @@ class vector {
   iterator erase(const_iterator _First, const_iterator _Last);
   void clear();
 
-  //==================================================================[[èµ‹å€¼ã€å­˜å–
+  //==================================================================[[¸³Öµ¡¢´æÈ¡
 
-  //==================================================================[[å…¶ä»–
+  //==================================================================[[ÆäËû
   data_allocator get_allocator() { return data_allocator; }
-  //==================================================================]]å…¶ä»–
+  //==================================================================]]ÆäËû
 
  private:
-  /*vector helper functionï¼Œbegin with Pstar_ */
+  /*vector helper function£¬begin with Pstar_ */
 };  // end of class
 
-//==================================================================[[è¿ç®—ç¬¦é‡è½½
+//==================================================================[[ÔËËã·ûÖØÔØ
 template <class T>
 bool operator==(const vector<T>& _Left, const vector<T>& _Right) {
   return _Left.size() == _Right.size() &&
@@ -136,9 +136,9 @@ template <class T>
 bool operator>=(const vector<T>& _Left, const vector<T>& _Right) {
   return !(_Left < _Right);
 }
-//==================================================================]]è¿ç®—ç¬¦é‡è½½
+//==================================================================]]ÔËËã·ûÖØÔØ
 
-//==================================================================[[å¯¹è±¡åˆ›å»º
+//==================================================================[[¶ÔÏó´´½¨
 template <class T>
 vector<T>::vector() {
   Iter_first = data_allocator::allocate(1);
@@ -185,7 +185,7 @@ vector<T>::vector(vector&& _Other) {
 
 template <class T>
 vector<T>& vector<T>::operator=(IN const vector& rhs) {
-  if (&rhs != this) { /*é¿å…è‡ªèµ‹å€¼ï¼Œé€šè¿‡åˆ¤æ–­åœ°å€æ¥ç¡®å®š*/
+  if (&rhs != this) { /*±ÜÃâ×Ô¸³Öµ£¬Í¨¹ıÅĞ¶ÏµØÖ·À´È·¶¨*/
     if (this->capacity < rhs.size()) {
       data_allocator::deallocate(this->Iter_first, this->size());
       TinySTL::destory(this->Iter_first, this->Iter_end);
@@ -215,7 +215,7 @@ vector<T>::~vector() {
   data_allocator::deallocate(Iter_first, Iter_end - Iter_first);
 }
 
-//==================================================================]]å¯¹è±¡åˆ›å»º
+//==================================================================]]¶ÔÏó´´½¨
 
 template <class T>
 typename vector<T>::size_type vector<T>::size() const noexcept {
@@ -288,7 +288,7 @@ void vector<T>::swap(vector& _Right) noexcept {
   }
 }
 
-//å…¨å±€å‡½æ•°
+//È«¾Öº¯Êı
 template <class T>
 void swap(vector<T>& _Left, vector<T>& _Right) {
   _Left.swap(_Right);

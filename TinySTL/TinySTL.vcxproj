@@ -93,9 +93,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\3rd;..\include;..\utils;G:\MyProject\TinySTL_hl\3rd;G:\MyProject\TinySTL_hl\test;G:\MyProject\TinySTL_hl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\3rd;..\include;G:\MyProject\TinySTL_hl\3rd;G:\MyProject\TinySTL_hl\test;G:\MyProject\TinySTL_hl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -107,9 +107,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\3rd;..\include;..\utils;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\3rd;..\include;</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -171,16 +171,10 @@
     <ClInclude Include="..\include\fundation\utility.h" />
     <ClInclude Include="..\test\algorithm_test.h" />
     <ClInclude Include="..\test\Integer_test.h" />
-    <ClInclude Include="..\test\UnitTest.h" />
-    <ClInclude Include="..\utils\hldb_log.h" />
+    <ClInclude Include="..\test\test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\main.cpp" />
-    <ClCompile Include="..\test\UnitTest.cpp" />
-    <ClCompile Include="..\utils\hldb_log.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".editorconfig" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

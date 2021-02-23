@@ -1,4 +1,4 @@
-ï»¿#ifndef LIST_H
+#ifndef LIST_H
 #define LIST_H
 
 #include "fundation/allocator.h"
@@ -14,27 +14,27 @@ class _List_node_base;
 template <class T>
 class _List_node;
 
-/**********************************************************listç»“ç‚¹è®¾è®¡******************************************************/
+/**********************************************************list½áµãÉè¼Æ******************************************************/
 template <class T>
 class _List_node_base {
  public:
   typedef _List_node_base<T>* _Base_ptr;
   typedef _List_node<T>* _Node_ptr;
 
-  //æŒ‡é’ˆåŸŸ
+  //Ö¸ÕëÓò
   _Base_ptr _Prev;
   _Base_ptr _Next;
 
   _List_node_base() = default;
 
-  _Base_ptr self() {  //å°†è¿™ä¸ª_List_node_baseå¯¹è±¡çš„åœ°å€ è½¬æ¢æˆä¸€ä¸ªæŒ‡é’ˆç±»å‹çš„åœ°å€
+  _Base_ptr self() {  //½«Õâ¸ö_List_node_base¶ÔÏóµÄµØÖ· ×ª»»³ÉÒ»¸öÖ¸ÕëÀàĞÍµÄµØÖ·
     return static_cast<_Base_ptr>(&*this);
   }
-  void unlink() {  //ç©ºç»“ç‚¹é¦–å°¾æŒ‡é’ˆéƒ½æŒ‡å‘è‡ªå·±
+  void unlink() {  //¿Õ½áµãÊ×Î²Ö¸Õë¶¼Ö¸Ïò×Ô¼º
     _Prev = _Next = self();
   }
   _Node_ptr
-  as_node() {  //åŸºç±»æŒ‡é’ˆè½¬æ¢æˆæ´¾ç”Ÿç±»æŒ‡é’ˆï¼Œä½¿å…¶å¯ä»¥è®¿é—®æ´¾ç”Ÿç±»æ–°å¢çš„æˆå‘˜
+  as_node() {  //»ùÀàÖ¸Õë×ª»»³ÉÅÉÉúÀàÖ¸Õë£¬Ê¹Æä¿ÉÒÔ·ÃÎÊÅÉÉúÀàĞÂÔöµÄ³ÉÔ±
     return static_cast<_Node_ptr>(self());
   }
 };
@@ -45,20 +45,20 @@ class _List_node : public _List_node_base<T> {
   typedef _List_node_base<T>* _Base_ptr;
   typedef _List_node<T>* _Node_ptr;
 
-  //å€¼åŸŸ
+  //ÖµÓò
   T _Myval;
 
   _List_node() = default;
   _List_node(const T& _Val) : _Myval(_Val) {}
 
   _Node_ptr self() { return static_cast<_Node_ptr>(&*this); }
-  _Base_ptr as_base() {  //æ´¾ç”Ÿç±»è½¬æ¢æˆåŸºç±»æŒ‡é’ˆï¼Œå»é™¤äº†æŒ‡å‘_Myvalçš„èƒ½åŠ›
+  _Base_ptr as_base() {  //ÅÉÉúÀà×ª»»³É»ùÀàÖ¸Õë£¬È¥³ıÁËÖ¸Ïò_MyvalµÄÄÜÁ¦
     return static_cast<_Base_ptr>(&*this);
   }
 };
 
-/**********************************************************listè¿­ä»£å™¨è®¾è®¡*****************************************************/
-// constè¿­ä»£å™¨å’Œéconstè¿­ä»£å™¨ï¼Œæ— æ³•ç›´æ¥ç”¨å¼ºåˆ¶è½¬æ¢å®ç°ã€‚å› ä¸ºå†…éƒ¨æ“ä½œæ˜¯ä¸åŒçš„
+/**********************************************************listµü´úÆ÷Éè¼Æ*****************************************************/
+// constµü´úÆ÷ºÍ·Çconstµü´úÆ÷£¬ÎŞ·¨Ö±½ÓÓÃÇ¿ÖÆ×ª»»ÊµÏÖ¡£ÒòÎªÄÚ²¿²Ù×÷ÊÇ²»Í¬µÄ
 
 template <class T>
 struct _List_iterator
@@ -70,27 +70,27 @@ struct _List_iterator
   typedef _List_node<T>* _Node_ptr;
   typedef _List_iterator<T> self;
 
-  _Base_ptr _Node;  //æŒ‡å‘ç»“ç‚¹
+  _Base_ptr _Node;  //Ö¸Ïò½áµã
 
-  //æ„é€ å‡½æ•°
+  //¹¹Ôìº¯Êı
   _List_iterator() = default;
   _List_iterator(_Base_ptr __Base_ptr) : _Node(__Base_ptr) {}
   _List_iterator(_Node_ptr __Node_ptr) : _Node(__Node_ptr->as_base()) {}
   _List_iterator(const _List_iterator<T>& rhs)
-      : _Node(rhs._Node) {  //æ‹·è´æ„é€ å‡½æ•°
+      : _Node(rhs._Node) {  //¿½±´¹¹Ôìº¯Êı
   }
 
-  //é‡è½½æ“ä½œç¬¦
+  //ÖØÔØ²Ù×÷·û
   reference operator*() const { return _Node->as_node()->_Myval; }
   pointer operator->() const { return &(operator*()); }
 
-  self& operator++() {  //å‰ç½®++
+  self& operator++() {  //Ç°ÖÃ++
     STL_DEBUG(_Node != nullptr);
     _Node = _Node->_Next;
     return *this;
   }
 
-  self operator++(int) {  //åç½®++
+  self operator++(int) {  //ºóÖÃ++
     self _Tmp = *this;
     ++*this;
     return _Tmp;
@@ -108,7 +108,7 @@ struct _List_iterator
     return _Tmp;
   }
 
-  //é‡è½½æ¯”è¾ƒè¿ç®—ç¬¦
+  //ÖØÔØ±È½ÏÔËËã·û
   bool operator==(const self& rhs) const { return _Node == rhs._Node; }
   bool operator!=(const self& rhs) const { return _Node != rhs._Node; }
 };
@@ -131,7 +131,7 @@ struct _List_const_iterator
   _List_const_iterator(const _List_iterator<T>& rhs) : _Node(rhs._Node) {}
 
   _List_const_iterator(const _List_const_iterator<T>& rhs)
-      : _Node(rhs._Node) {  //æ‹·è´æ„é€ å‡½æ•°
+      : _Node(rhs._Node) {  //¿½±´¹¹Ôìº¯Êı
   }
 
   reference operator*() const { return _Node->as_node()->_Myval; }
@@ -161,24 +161,24 @@ struct _List_const_iterator
     return _Tmp;
   }
 
-  // é‡è½½æ¯”è¾ƒæ“ä½œç¬¦
+  // ÖØÔØ±È½Ï²Ù×÷·û
   bool operator==(const self& rhs) const { return _Node == rhs._Node; }
   bool operator!=(const self& rhs) const { return _Node != rhs._Node; }
 };
 
-/**********************************************************listå®¹å™¨ç»“æ„è®¾è®¡******************************************************/
+/**********************************************************listÈİÆ÷½á¹¹Éè¼Æ******************************************************/
 template <class T>
 class list {
  public:
   typedef TinySTL::allocator<T>
-      _Allocator_type;  //ç”¨äºæå–allocatorçš„ä¸€äº›å‹åˆ«å®šä¹‰
-  typedef TinySTL::allocator<T> _Data_allocator;  //ç”¨äºåœ¨ç»“ç‚¹çš„å€¼åŸŸå¤„ æ„é€ å¯¹è±¡
+      _Allocator_type;  //ÓÃÓÚÌáÈ¡allocatorµÄÒ»Ğ©ĞÍ±ğ¶¨Òå
+  typedef TinySTL::allocator<T> _Data_allocator;  //ÓÃÓÚÔÚ½áµãµÄÖµÓò´¦ ¹¹Ôì¶ÔÏó
   typedef TinySTL::allocator<_List_node<T>>
-      _Node_allocator;  //ç”³è¯·ã€é”€æ¯_List_nodeç»“ç‚¹
+      _Node_allocator;  //ÉêÇë¡¢Ïú»Ù_List_node½áµã
   typedef TinySTL::allocator<_List_node_base<T>>
-      _Base_allocator;  //ç”³è¯·ã€é”€æ¯_List_node_baseç»“ç‚¹
+      _Base_allocator;  //ÉêÇë¡¢Ïú»Ù_List_node_base½áµã
 
-  //å†…åµŒå‹åˆ«å®šä¹‰
+  //ÄÚÇ¶ĞÍ±ğ¶¨Òå
   typedef typename _Allocator_type::value_type value_type;
   typedef typename _Allocator_type::pointer pointer;
   typedef typename _Allocator_type::const_pointer const_pointer;
@@ -187,35 +187,35 @@ class list {
   typedef typename _Allocator_type::size_type size_type;
   typedef typename _Allocator_type::difference_type difference_type;
 
-  //è¿­ä»£å™¨å®šä¹‰
+  //µü´úÆ÷¶¨Òå
   typedef _List_iterator<T> iterator;
   typedef _List_const_iterator<T> const_iterator;
   typedef TinySTL::reverse_iterator<iterator> reverse_iterator;
   typedef TinySTL::reverse_iterator<const_iterator> const_reverse_iterator;
 
-  //å†…éƒ¨ç»“ç‚¹æŒ‡é’ˆå®šä¹‰
+  //ÄÚ²¿½áµãÖ¸Õë¶¨Òå
   typedef _List_node_base<T>* _Base_ptr;
   typedef _List_node<T>* _Node_ptr;
 
  private:
-  _Base_ptr _Node;  //æŒ‡å‘ ä¸ºäº†æ»¡è¶³å‰é—­åå¼€åŸåˆ™è®¾ç½®çš„ç»“ç‚¹ çš„æŒ‡é’ˆ
-  size_type _Size;  //é“¾è¡¨ç»“ç‚¹ä¸ªæ•°
+  _Base_ptr _Node;  //Ö¸Ïò ÎªÁËÂú×ãÇ°±Õºó¿ªÔ­ÔòÉèÖÃµÄ½áµã µÄÖ¸Õë
+  size_type _Size;  //Á´±í½áµã¸öÊı
 
  private:
   // helper function
 
-  //ç”³è¯·ç»“ç‚¹å’Œé”€æ¯ç»“ç‚¹
+  //ÉêÇë½áµãºÍÏú»Ù½áµã
   _Node_ptr create_node(const value_type& _Val);
   void destory_node(_Node_ptr __Node_ptr);
 
-  //åˆå§‹åŒ–æ„å»º
+  //³õÊ¼»¯¹¹½¨
   void fill_init(size_type _Count, const value_type& _Val = value_type());
   template <class Iter>
   void copy_init(Iter fistr, Iter _Last);
 
-  /*æ’å…¥æ„å»º
-  æ’å…¥æ–°ç»“ç‚¹æ—¶ï¼Œéœ€ç”Ÿæˆæ–°ç»“ç‚¹å’Œé€‰æ‹©æ’å…¥ä½ç½®ï¼Œä¸åŒä½ç½®æ’å…¥å¯¼è‡´é“¾æ¥æ–¹å¼ä¹Ÿä¸ä¸€æ ·
-  å¯ä»¥è‡ªå®šä¹‰æ–°ç»“ç‚¹å€¼ï¼Œä¹Ÿå¯ä»¥æ ¹æ®ä¸€æ®µåºåˆ—çš„å€¼è¿›è¡Œç»“ç‚¹åˆ›å»º
+  /*²åÈë¹¹½¨
+  ²åÈëĞÂ½áµãÊ±£¬ĞèÉú³ÉĞÂ½áµãºÍÑ¡Ôñ²åÈëÎ»ÖÃ£¬²»Í¬Î»ÖÃ²åÈëµ¼ÖÂÁ´½Ó·½Ê½Ò²²»Ò»Ñù
+  ¿ÉÒÔ×Ô¶¨ÒåĞÂ½áµãÖµ£¬Ò²¿ÉÒÔ¸ù¾İÒ»¶ÎĞòÁĞµÄÖµ½øĞĞ½áµã´´½¨
   */
   iterator link_one_node(const_iterator _Where, _Base_ptr __Base_ptr);
   void link_node(_Base_ptr __Base_ptr, _Base_ptr _First, _Base_ptr _Last);
@@ -241,7 +241,7 @@ class list {
     size_type _Count = 0;
     auto _Tmp = _First;
     for (; _Tmp != _Last; ++_Tmp) _Count++;
-    // distanceå‡½æ•°æ²¡ç”¨ï¼Œåç»­æ”¹è¿›ä»¥åæ¢æˆdistance
+    // distanceº¯ÊıÃ»ÓÃ£¬ºóĞø¸Ä½øÒÔºó»»³Édistance
     copy_insert(_Where, _Count, _First);
   }
   void insert_aux(const_iterator _Where, size_type _Count,
@@ -256,7 +256,7 @@ class list {
 
  public:
   /********************************************************************************/
-  //å¯¹è±¡æ„é€ ã€ææ„ç›¸å…³
+  //¶ÔÏó¹¹Ôì¡¢Îö¹¹Ïà¹Ø
   list();
   list(size_type _Count);
   list(size_type _Count, const value_type& _Val);
@@ -266,7 +266,7 @@ class list {
   ~list();
 
   /********************************************************************************/
-  //è¿­ä»£å™¨ç›¸å…³
+  //µü´úÆ÷Ïà¹Ø
   iterator begin() { return _Node->_Next; }
   iterator end() { return _Node; }
   const_iterator begin() const { return _Node->_Next; }
@@ -276,14 +276,14 @@ class list {
   const_iterator cend() const { return end(); }
 
   /********************************************************************************/
-  //å®¹é‡ç›¸å…³ç›¸å…³
+  //ÈİÁ¿Ïà¹ØÏà¹Ø
   bool empty() { return _Node->_Next == _Node; }
   size_type size() const { return _Size; }
   void resize(size_type _Newsize);
   void resize(size_type _Newsize, const value_type& _Val);
 
   /********************************************************************************/
-  //å…ƒç´ è®¿é—®ç›¸å…³
+  //ÔªËØ·ÃÎÊÏà¹Ø
   reference front() {
     STL_DEBUG(!empty());
     return *begin();
@@ -294,7 +294,7 @@ class list {
   }
 
   /********************************************************************************/
-  //å…ƒç´ ä¿®æ”¹ç›¸å…³ç›¸å…³
+  //ÔªËØĞŞ¸ÄÏà¹ØÏà¹Ø
   void push_back(const value_type& _Val);
   void push_front(const value_type& _Val);
   void pop_back();
@@ -334,12 +334,12 @@ class list {
 };  // end of  list class
 
 /********************************************************************************/
-// helper function å®ç°
+// helper function ÊµÏÖ
 template <class T>
 typename list<T>::_Node_ptr list<T>::create_node(const value_type& _Val) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šä»¥ä¼ å…¥å‚æ•°ä¸ºå€¼ï¼Œåˆ›å»ºç»“ç‚¹
-  å‡½æ•°è¿”å›ï¼šè¿”å›æŒ‡å‘è¯¥ç»“ç‚¹çš„æŒ‡é’ˆ
+  º¯Êı¹¦ÄÜ£ºÒÔ´«Èë²ÎÊıÎªÖµ£¬´´½¨½áµã
+  º¯Êı·µ»Ø£º·µ»ØÖ¸Ïò¸Ã½áµãµÄÖ¸Õë
   */
   _Node_ptr __Node_ptr = _Node_allocator::allocate(1);
   _Data_allocator::construct(&__Node_ptr->_Myval, _Val);
@@ -351,8 +351,8 @@ typename list<T>::_Node_ptr list<T>::create_node(const value_type& _Val) {
 template <class T>
 void list<T>::destory_node(_Node_ptr __Node_ptr) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šææ„ä¼ å…¥æŒ‡é’ˆæ‰€æŒ‡å‘çš„ç»“ç‚¹çš„å€¼åŸŸ
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£ºÎö¹¹´«ÈëÖ¸ÕëËùÖ¸ÏòµÄ½áµãµÄÖµÓò
+  º¯Êı·µ»Ø£ºÎŞ
   */
   _Data_allocator::destory(&__Node_ptr->_Myval);
   _Node_allocator::deallocate(__Node_ptr);
@@ -361,11 +361,11 @@ void list<T>::destory_node(_Node_ptr __Node_ptr) {
 template <class T>
 void list<T>::fill_init(size_type _Count, const value_type& _Val) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šåˆå§‹åŒ–å®¹å™¨å¯¹è±¡ï¼Œåˆ›å»º_Countä¸ªå€¼ä¸º_Valçš„ç»“ç‚¹
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£º³õÊ¼»¯ÈİÆ÷¶ÔÏó£¬´´½¨_Count¸öÖµÎª_ValµÄ½áµã
+  º¯Êı·µ»Ø£ºÎŞ
   */
   _Node = _Base_allocator::allocate(1);
-  _Node->unlink();  //å¦‚æœæ²¡å†™ï¼Œé¦–å…ƒç»“ç‚¹_Nodeçš„æŒ‡é’ˆä¼šå˜æˆé‡æŒ‡é’ˆ
+  _Node->unlink();  //Èç¹ûÃ»Ğ´£¬Ê×Ôª½áµã_NodeµÄÖ¸Õë»á±ä³ÉÒ°Ö¸Õë
   _Size = _Count;
   if (_Count == 0) return;
   for (; _Count > 0; --_Count) {
@@ -378,8 +378,8 @@ template <class T>
 template <class Iter>
 void list<T>::copy_init(Iter _First, Iter _Last) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šä»¥[_First,_Last)åŒºé—´å†…ç»“ç‚¹å€¼ä½œä¸ºæ–°ç»“ç‚¹çš„å€¼æ„é€ æ–°ç»“ç‚¹
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£ºÒÔ[_First,_Last)Çø¼äÄÚ½áµãÖµ×÷ÎªĞÂ½áµãµÄÖµ¹¹ÔìĞÂ½áµã
+  º¯Êı·µ»Ø£ºÎŞ
   */
   _Node = _Base_allocator::allocate(1);
   _Node->unlink();
@@ -395,8 +395,8 @@ template <class T>
 typename list<T>::iterator list<T>::link_one_node(const_iterator _Where,
                                                   _Base_ptr __Base_ptr) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šåœ¨_Whereå‡ºé“¾æ¥ä¸€ä¸ªæ–°ç»“ç‚¹__Base_ptr
-  å‡½æ•°è¿”å›ï¼šè¿”å›æŒ‡å‘æ–°ç»“ç‚¹çš„è¿­ä»£å™¨
+  º¯Êı¹¦ÄÜ£ºÔÚ_Where³öÁ´½ÓÒ»¸öĞÂ½áµã__Base_ptr
+  º¯Êı·µ»Ø£º·µ»ØÖ¸ÏòĞÂ½áµãµÄµü´úÆ÷
   */
   if (_Where == _Node->_Next) {
     link_node_at_front(__Base_ptr, __Base_ptr);
@@ -411,8 +411,8 @@ template <class T>
 void list<T>::link_node(_Base_ptr __Base_ptr, _Base_ptr _First,
                         _Base_ptr _Last) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šåœ¨__Base_ptråé¢è¿æ¥ä¸€æ®µç»“ç‚¹[_First,_Last)
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£ºÔÚ__Base_ptrºóÃæÁ¬½ÓÒ»¶Î½áµã[_First,_Last)
+  º¯Êı·µ»Ø£ºÎŞ
   */
   __Base_ptr->_Prev->_Next = _First;
   _Last->_Next = __Base_ptr;
@@ -423,8 +423,8 @@ void list<T>::link_node(_Base_ptr __Base_ptr, _Base_ptr _First,
 template <class T>
 void list<T>::link_node_at_front(_Base_ptr _First, _Base_ptr _Last) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šåœ¨é¦–å…ƒç»“ç‚¹_Nodeåé¢è¿æ¥ä¸€æ®µåŒºé—´[_First,_Last)
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£ºÔÚÊ×Ôª½áµã_NodeºóÃæÁ¬½ÓÒ»¶ÎÇø¼ä[_First,_Last)
+  º¯Êı·µ»Ø£ºÎŞ
   */
   _Last->_Next = _Node->_Next;
   _Node->_Next->_Prev = _Last;
@@ -435,21 +435,21 @@ void list<T>::link_node_at_front(_Base_ptr _First, _Base_ptr _Last) {
 template <class T>
 void list<T>::link_node_at_back(_Base_ptr _First, _Base_ptr _Last) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šåœ¨_Nodeå‰è¿æ¥ä¸€æ®µåŒºé—´[_First,_Last)
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£ºÔÚ_NodeÇ°Á¬½ÓÒ»¶ÎÇø¼ä[_First,_Last)
+  º¯Êı·µ»Ø£ºÎŞ
   */
   _Last->_Next = _Node;
   _First->_Prev = _Node->_Prev;  //
   _First->_Prev->_Next =
-      _First;  //å¦‚æœ_Nodeä¹‹å‰æ²¡æœ‰ç»“ç‚¹ï¼Œè¿™ä¸¤å¥å¥çš„ä½œç”¨å°±æ˜¯_First=_Firstï¼›
+      _First;  //Èç¹û_NodeÖ®Ç°Ã»ÓĞ½áµã£¬ÕâÁ½¾ä¾äµÄ×÷ÓÃ¾ÍÊÇ_First=_First£»
   _Node->_Prev = _Last;
 }
 
 template <class T>
 void list<T>::unlink_node(_Base_ptr _First, _Base_ptr _Last) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šå°†ä¸€æ®µç»“ç‚¹[_First,_Last)ä»å®¹å™¨ä¸­åˆ‡å‡º
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£º½«Ò»¶Î½áµã[_First,_Last)´ÓÈİÆ÷ÖĞÇĞ³ö
+  º¯Êı·µ»Ø£ºÎŞ
   */
   _First->_Prev->_Next = _Last->_Next;
   _Last->_Next->_Prev = _First->_Prev;
@@ -460,8 +460,8 @@ typename list<T>::iterator list<T>::fill_insert(const_iterator _Where,
                                                 size_type _Count,
                                                 const value_type& _Val) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šç”¨äºinsertå‡½æ•°ã€‚åˆ›å»º_Countä¸ªå€¼ä¸º_Valçš„ç»“ç‚¹ï¼Œå¹¶æ¥å…¥_Whereä¹‹å
-  å‡½æ•°è¿”å›ï¼šè¿”å›ä¸€ä¸ªæŒ‡å‘æœ€åæ’å…¥çš„ç»“ç‚¹çš„è¿­ä»£å™¨
+  º¯Êı¹¦ÄÜ£ºÓÃÓÚinsertº¯Êı¡£´´½¨_Count¸öÖµÎª_ValµÄ½áµã£¬²¢½ÓÈë_WhereÖ®ºó
+  º¯Êı·µ»Ø£º·µ»ØÒ»¸öÖ¸Ïò×îºó²åÈëµÄ½áµãµÄµü´úÆ÷
   */
   _Size += _Count;
   iterator r;
@@ -477,8 +477,8 @@ template <class Iter>
 typename list<T>::iterator list<T>::copy_insert(const_iterator _Where,
                                                 size_type _Count, Iter _First) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šç”¨äºinsertã€‚ä»¥ä¸€æ®µç»“ç‚¹[_First,_First+_Count)çš„å€¼ä¸ºæ–°ç»“ç‚¹å€¼åˆ›å»ºæ–°ç»“ç‚¹ï¼Œå¹¶æ¥å…¥_Whereä¹‹å
-  å‡½æ•°è¿”å›ï¼šè¿”å›ä¸€ä¸ªæŒ‡å‘æœ€åæ’å…¥é“¾è¡¨çš„ç»“ç‚¹çš„è¿­ä»£å™¨
+  º¯Êı¹¦ÄÜ£ºÓÃÓÚinsert¡£ÒÔÒ»¶Î½áµã[_First,_First+_Count)µÄÖµÎªĞÂ½áµãÖµ´´½¨ĞÂ½áµã£¬²¢½ÓÈë_WhereÖ®ºó
+  º¯Êı·µ»Ø£º·µ»ØÒ»¸öÖ¸Ïò×îºó²åÈëÁ´±íµÄ½áµãµÄµü´úÆ÷
   */
   size_type _Add_size = _Count;
   _Size += _Add_size;
@@ -491,7 +491,7 @@ typename list<T>::iterator list<T>::copy_insert(const_iterator _Where,
 }
 
 /********************************************************************************/
-//å¯¹è±¡æ„é€ ã€ææ„ç›¸å…³
+//¶ÔÏó¹¹Ôì¡¢Îö¹¹Ïà¹Ø
 template <class T>
 list<T>::list() {
   fill_init(0, value_type());
@@ -522,7 +522,7 @@ list<T>::list(const list& _Right) {
 
 template <class T>
 list<T>::~list() {
-  //æ™®é€šç»“ç‚¹å’Œé¦–å…ƒç»“ç‚¹åˆ†å¼€é”€æ¯
+  //ÆÕÍ¨½áµãºÍÊ×Ôª½áµã·Ö¿ªÏú»Ù
   if (_Node) {
     clear();
     _Base_allocator::deallocate(_Node);
@@ -532,7 +532,7 @@ list<T>::~list() {
 }
 
 /********************************************************************************/
-//å®¹é‡ç›¸å…³ç›¸å…³
+//ÈİÁ¿Ïà¹ØÏà¹Ø
 template <class T>
 void list<T>::resize(size_type _Newsize) {
   resize(_Newsize, value_type());
@@ -546,13 +546,13 @@ void list<T>::resize(size_type _Newsize, const value_type& _Val) {
     _Size = _Newsize;
   } else {
     size_type _Delete_size = size() - _Newsize;
-    while (_Delete_size--) pop_back();  //æ³¨æ„pop_backæœ¬èº«ä¹Ÿä¼šå¯¹_Sizeè¿›è¡Œå‡ä¸€
+    while (_Delete_size--) pop_back();  //×¢Òâpop_back±¾ÉíÒ²»á¶Ô_Size½øĞĞ¼õÒ»
     _Size = _Newsize;
   }
 }
 
 /********************************************************************************/
-//å…ƒç´ ä¿®æ”¹ç›¸å…³ç›¸å…³
+//ÔªËØĞŞ¸ÄÏà¹ØÏà¹Ø
 template <class T>
 void list<T>::clear() {
   if (_Size != 0) {
@@ -562,7 +562,7 @@ void list<T>::clear() {
       destory_node(cur->as_node());
     }
   }
-  //æ¸…é™¤å®Œæ¯•ï¼Œå‰©ä¸‹é¦–å…ƒç»“ç‚¹
+  //Çå³ıÍê±Ï£¬Ê£ÏÂÊ×Ôª½áµã
   _Node->unlink();
   _Size = 0;
 }
@@ -628,12 +628,12 @@ void list<T>::insert(iterator _Where, _InIt _First, _InIt _Last) {
 template <class T>
 void list<T>::splice(const_iterator _Where, list& _Right) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šå°†æ•´ä¸ªé“¾è¡¨_Rightï¼ˆä¸èƒ½æ˜¯è‡ªèº«ï¼‰åˆå¹¶åˆ°é“¾è¡¨çš„_Whereä¹‹å‰ã€‚ï¼ˆæ å¤ºå¼åˆå¹¶ï¼‰
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£º½«Õû¸öÁ´±í_Right£¨²»ÄÜÊÇ×ÔÉí£©ºÏ²¢µ½Á´±íµÄ_WhereÖ®Ç°¡££¨ÂÓ¶áÊ½ºÏ²¢£©
+  º¯Êı·µ»Ø£ºÎŞ
   */
   STL_DEBUG(this != &_Right);
   if (!_Right.empty()) {
-    // insert(_Where, _Right.begin(), _Right.end()); è¿™ä¸ªä¸æ˜¯æ å¤ºå¼æ’å…¥
+    // insert(_Where, _Right.begin(), _Right.end()); Õâ¸ö²»ÊÇÂÓ¶áÊ½²åÈë
     auto _First = _Right._Node->_Next;
     auto _Last = _Right._Node->_Prev;
 
@@ -649,8 +649,8 @@ template <class T>
 void list<T>::splice(const_iterator _Where, list& _Right,
                      const_iterator _First) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šå°†é“¾è¡¨_Right[_First, _First+1ï¼‰åˆå¹¶åˆ°_Whereä¹‹å‰ï¼ˆæ å¤ºå¼åˆå¹¶ï¼‰
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£º½«Á´±í_Right[_First, _First+1£©ºÏ²¢µ½_WhereÖ®Ç°£¨ÂÓ¶áÊ½ºÏ²¢£©
+  º¯Êı·µ»Ø£ºÎŞ
   */
   if (_Where._Node != _First._Node && _Where._Node != _First._Node->_Next) {
     auto _Tmp = _First._Node;
@@ -665,8 +665,8 @@ template <class T>
 void list<T>::splice(const_iterator _Where, list& _Right, const_iterator _First,
                      const_iterator _Last) {
   /*
-  å‡½æ•°åŠŸèƒ½ï¼šå°†é“¾è¡¨_Rightï¼ˆå¯ä»¥æ˜¯è‡ªèº«ï¼‰çš„ä¸€æ®µç»“ç‚¹[_Firstï¼Œ_Last)åˆå¹¶åˆ°_Whereä¹‹å‰ã€‚ï¼ˆæ å¤ºå¼åˆå¹¶ï¼‰
-  å‡½æ•°è¿”å›ï¼šæ— 
+  º¯Êı¹¦ÄÜ£º½«Á´±í_Right£¨¿ÉÒÔÊÇ×ÔÉí£©µÄÒ»¶Î½áµã[_First£¬_Last)ºÏ²¢µ½_WhereÖ®Ç°¡££¨ÂÓ¶áÊ½ºÏ²¢£©
+  º¯Êı·µ»Ø£ºÎŞ
   */
   size_type _Count = 0;
   auto _Tmp = _First;
@@ -723,11 +723,11 @@ void list<T>::merge(list& _Right, Compare comp) {
 
     while (_First1 != _Last1 && _First2 != _Last2) {
       if (comp(*_First2, *_First1)) {
-        //ä½¿å¾—compä¸ºçœŸ
+        //Ê¹µÃcompÎªÕæ
         iterator _Next = _First2;
         ++_Next;
         for (; _Next != _Last2 && comp(*_Next, *_First1);
-             ++_Next)  //æœå¯»ä¸€å¤§æ®µæ»¡è¶³copmè¦æ±‚çš„ç»“ç‚¹ï¼Œæé«˜æ•ˆç‡
+             ++_Next)  //ËÑÑ°Ò»´ó¶ÎÂú×ãcopmÒªÇóµÄ½áµã£¬Ìá¸ßĞ§ÂÊ
           ;
         auto _Tmp_first = _First2._Node;
         auto _Tmp_last = _Next._Node->_Prev;
@@ -742,7 +742,7 @@ void list<T>::merge(list& _Right, Compare comp) {
       }
     }
 
-    //è¿æ¥å‰©ä½™ç»“ç‚¹
+    //Á¬½ÓÊ£Óà½áµã
     if (_First2 != _Last2) {
       auto _Tmp_first = _First2._Node;
       auto _Tmp_last = _Last2._Node->_Prev;
@@ -757,7 +757,7 @@ void list<T>::merge(list& _Right, Compare comp) {
 
 template <class T>
 void list<T>::remove(const value_type& _Val) {
-  // lamadaè¡¨è¾¾å¼
+  // lamada±í´ïÊ½
   remove_if([&](const value_type& _Tmp) { return _Tmp == _Val; });
 }
 
@@ -767,9 +767,9 @@ void list<T>::remove_if(Predicate _Pred) {
   auto _First = begin();
   auto _Last = end();
   for (auto _Next = _First; _First != _Last; _First = _Next) {
-    // eraseæ¯æ¬¡éƒ½ä¼šé‡Šæ”¾ä¼ å…¥çš„è¿­ä»£å™¨ï¼Œå¯¼è‡´è¿­ä»£å™¨å¤±æ•ˆï¼Œæ‰€ä»¥æ¯æ¬¡å¾ªç¯_First=_Next
+    // eraseÃ¿´Î¶¼»áÊÍ·Å´«ÈëµÄµü´úÆ÷£¬µ¼ÖÂµü´úÆ÷Ê§Ğ§£¬ËùÒÔÃ¿´ÎÑ­»·_First=_Next
     ++_Next;
-    if (_Pred(*_First)) erase(_First);  // eraseä¸­æœ‰--_Size
+    if (_Pred(*_First)) erase(_First);  // eraseÖĞÓĞ--_Size
   }
 }
 
@@ -781,7 +781,7 @@ void list<T>::unique() {
 template <class T>
 template <class BinaryPredicate>
 void list<T>::unique(BinaryPredicate _Pred) {
-  //æ»‘åŠ¨çª—å£ï¼Œä»¥[ _Cur, _First ]ä¸ºçª—å£å‘å‰ç§»åŠ¨ï¼Œç¬¦åˆæ¡ä»¶åˆ™åˆ é™¤_Cur
+  //»¬¶¯´°¿Ú£¬ÒÔ[ _Cur, _First ]Îª´°¿ÚÏòÇ°ÒÆ¶¯£¬·ûºÏÌõ¼şÔòÉ¾³ı_Cur
   auto _First = begin();
   auto _Last = end();
   auto _Cur = _First;
@@ -811,7 +811,7 @@ void list<T>::reverse() {
 
 template <class T>
 void list<T>::swap(list& _Rigth) {
-  //äº¤æ¢å†…éƒ¨ç»“æ„ï¼Œå³æŒ‡å‘é¦–å…ƒèŠ‚ç‚¹çš„æŒ‡é’ˆ
+  //½»»»ÄÚ²¿½á¹¹£¬¼´Ö¸ÏòÊ×Ôª½ÚµãµÄÖ¸Õë
   TinySTL::swap(_Node, _Rigth._Node);
   TinySTL::swap(_Size, _Rigth._Size);
 }
