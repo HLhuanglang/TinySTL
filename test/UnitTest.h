@@ -105,4 +105,89 @@ class UnitTest {
       LOGINFO(" EXPECT_FALSE failed!");                          \
     }                                                            \
   } while (0)
+
+// 比较断言
+// EXPECT_EQ(v1,v2) 相等
+// EXPECT_NQ(v1,v2) 不相等
+// EXPECT_GT(v1,v2) 大于
+// EXPECT_LT(v1,v2) 小于
+// EXPECT_GE(v1,v2) 大于等于
+// EXPECT_LE(v1,v2) 小于等于
+#define EXPECT_EQ(v1, v2)                                        \
+  do {                                                           \
+    if (v1 == v2) {                                              \
+      UnitTest::GetInstance()->curr_test_case_->result_ = true;  \
+      UnitTest::GetInstance()->curr_test_case_->passed_++;       \
+      LOGINFO(" EXPECT_EQ succeeded!");                          \
+    } else {                                                     \
+      UnitTest::GetInstance()->curr_test_case_->result_ = false; \
+      UnitTest::GetInstance()->curr_test_case_->failed_++;       \
+      LOGINFO(" EXPECT_EQ failed!");                             \
+    }                                                            \
+  } while (0)
+
+#define EXPECT_NQ(v1, v2)                                        \
+  do {                                                           \
+    if (v1 != v2) {                                              \
+      UnitTest::GetInstance()->curr_test_case_->result_ = true;  \
+      UnitTest::GetInstance()->curr_test_case_->passed_++;       \
+      LOGINFO(" EXPECT_EQ succeeded!");                          \
+    } else {                                                     \
+      UnitTest::GetInstance()->curr_test_case_->result_ = false; \
+      UnitTest::GetInstance()->curr_test_case_->failed_++;       \
+      LOGINFO(" EXPECT_EQ failed!");                             \
+    }                                                            \
+  } while (0)
+
+#define EXPECT_GT(v1, v2)                                        \
+  do {                                                           \
+    if (v1 > v2) {                                               \
+      UnitTest::GetInstance()->curr_test_case_->result_ = true;  \
+      UnitTest::GetInstance()->curr_test_case_->passed_++;       \
+      LOGINFO(" EXPECT_EQ succeeded!");                          \
+    } else {                                                     \
+      UnitTest::GetInstance()->curr_test_case_->result_ = false; \
+      UnitTest::GetInstance()->curr_test_case_->failed_++;       \
+      LOGINFO(" EXPECT_EQ failed!");                             \
+    }                                                            \
+  } while (0)
+
+#define EXPECT_LT(v1, v2)                                        \
+  do {                                                           \
+    if (v1 < v2) {                                               \
+      UnitTest::GetInstance()->curr_test_case_->result_ = true;  \
+      UnitTest::GetInstance()->curr_test_case_->passed_++;       \
+      LOGINFO(" EXPECT_EQ succeeded!");                          \
+    } else {                                                     \
+      UnitTest::GetInstance()->curr_test_case_->result_ = false; \
+      UnitTest::GetInstance()->curr_test_case_->failed_++;       \
+      LOGINFO(" EXPECT_EQ failed!");                             \
+    }                                                            \
+  } while (0)
+
+#define EXPECT_GE(v1, v2)                                        \
+  do {                                                           \
+    if (v1 >= v2) {                                              \
+      UnitTest::GetInstance()->curr_test_case_->result_ = true;  \
+      UnitTest::GetInstance()->curr_test_case_->passed_++;       \
+      LOGINFO(" EXPECT_EQ succeeded!");                          \
+    } else {                                                     \
+      UnitTest::GetInstance()->curr_test_case_->result_ = false; \
+      UnitTest::GetInstance()->curr_test_case_->failed_++;       \
+      LOGINFO(" EXPECT_EQ failed!");                             \
+    }                                                            \
+  } while (0)
+
+#define EXPECT_LE(v1, v2)                                        \
+  do {                                                           \
+    if (v1 <= v2) {                                              \
+      UnitTest::GetInstance()->curr_test_case_->result_ = true;  \
+      UnitTest::GetInstance()->curr_test_case_->passed_++;       \
+      LOGINFO(" EXPECT_EQ succeeded!");                          \
+    } else {                                                     \
+      UnitTest::GetInstance()->curr_test_case_->result_ = false; \
+      UnitTest::GetInstance()->curr_test_case_->failed_++;       \
+      LOGINFO(" EXPECT_EQ failed!");                             \
+    }                                                            \
+  } while (0)
 #endif  // !UNITTEST_H

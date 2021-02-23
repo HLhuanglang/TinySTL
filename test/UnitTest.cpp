@@ -56,9 +56,9 @@ void UnitTest::StartTest() {
 
 void UnitTest::DisplayResult(const char* test_case_name, size_t passed,
                              size_t failed, bool result) {
-  std::string result_str = "PASSED";
+  std::string result_str = "UN-PASSED";
   if (result) {
-    result_str = "UN-PASSED";
+    result_str = "PASSED";
   }
   std::cout << "+----------------------+" << std::endl;
   std::cout << "|TestCaseName|" << test_case_name << std::endl;

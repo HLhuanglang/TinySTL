@@ -9,7 +9,7 @@
 namespace TinySTL {
 /******************************************************
 函 数 名：swap
-函数作用：输入参数完全交换
+函数作用：输入参数完全交换(给容器就交换容器,给容器内部元素就换元素)
 函数参数：
                 [IN]	_Left :交换对象
                 [IN]	_Right:交换对象
@@ -90,8 +90,8 @@ inline bool equal(IN _InIt1 _First1, IN _InIt1 _Last1, IN _InIt2 _First2) {
   for (; _First1 != _Last1;
        ++_First1, ++_First2) {  //如果第二序列更短，迭代时会造成不可预测的结果
     if (*_First1 != *_First2) return false;
-    return true;
   }
+  return true;
 }
 
 /******************************************************
