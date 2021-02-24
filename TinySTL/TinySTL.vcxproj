@@ -156,6 +156,16 @@
   <ItemGroup>
     <ClInclude Include="..\include\algorithm\algobase.h" />
     <ClInclude Include="..\include\algorithm\algorithm.h" />
+    <ClInclude Include="..\include\algorithm\binary_serach_algo.h" />
+    <ClInclude Include="..\include\algorithm\comparison_algo.h" />
+    <ClInclude Include="..\include\algorithm\heap_algo.h" />
+    <ClInclude Include="..\include\algorithm\min_max_algo.h" />
+    <ClInclude Include="..\include\algorithm\modify_sequense_algo.h" />
+    <ClInclude Include="..\include\algorithm\no_modify_sequense_algo.h" />
+    <ClInclude Include="..\include\algorithm\partition_algo.h" />
+    <ClInclude Include="..\include\algorithm\permutation_algo.h" />
+    <ClInclude Include="..\include\algorithm\set_algo.h" />
+    <ClInclude Include="..\include\algorithm\sort_algo.h" />
     <ClInclude Include="..\include\container\deque.h" />
     <ClInclude Include="..\include\container\Integer.h" />
     <ClInclude Include="..\include\container\list.h" />
