@@ -83,6 +83,36 @@
     <ClInclude Include="..\include\container\string.h">
       <Filter>include\container</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\algorithm\heap_algo.h">
+      <Filter>include\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\algorithm\binary_serach_algo.h">
+      <Filter>include\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\algorithm\comparison_algo.h">
+      <Filter>include\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\algorithm\min_max_algo.h">
+      <Filter>include\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\algorithm\modify_sequense_algo.h">
+      <Filter>include\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\algorithm\no_modify_sequense_algo.h">
+      <Filter>include\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\algorithm\partition_algo.h">
+      <Filter>include\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\algorithm\permutation_algo.h">
+      <Filter>include\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\algorithm\set_algo.h">
+      <Filter>include\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\algorithm\sort_algo.h">
+      <Filter>include\algorithm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\main.cpp">
