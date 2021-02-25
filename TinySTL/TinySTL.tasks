@@ -1,0 +1,10 @@
+[
+  {
+    "$type": "VSToDoList.Models.Task, VSToDoList",
+    "Name": "添加算法的定义",
+    "IsDone": false,
+    "IsExpanded": false,
+    "SubTasks": [],
+    "Status": 0
+  }
+]

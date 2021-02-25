@@ -60,5 +60,12 @@ TEST(fill_n_test) {
   std::vector<int> v1_after_fill_n = {0, 0, 0, 0, 0, 6, 7, 8, 9, 10};
   EXPECT_EQ(v1, v1_after_fill_n);
 }
+
+
+TEST(copy_test)
+{
+
+}
+
 }  // namespace TinySTL
 #endif  // !ALGORITHM_TEST_H
