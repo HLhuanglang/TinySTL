@@ -61,11 +61,50 @@ TEST(fill_n_test) {
   EXPECT_EQ(v1, v1_after_fill_n);
 }
 
-
-TEST(copy_test)
-{
-
+TEST(copy_test) {
+  // todo
 }
 
+TEST(all_of_test) {
+  std::vector<int> v1 = {2, 2, 2, 4, 6, 6};
+  EXPECT_TRUE(TinySTL::all_of(v1.begin(), v1.end(),
+                              [](int i) { return (i % 2 == 0); }));
+}
+
+TEST(any_of_test) {
+  std::vector<int> v1 = {1, 3, 5, 7, 9};
+  std::vector<int> v2 = {1, 2, 3, 5, 7, 9};
+  EXPECT_FALSE(
+      TinySTL::any_of(v1.begin(), v1.end(), [](int i) { return i == 2; }));
+  EXPECT_TRUE(
+      TinySTL::any_of(v2.begin(), v2.end(), [](int i) { return i == 2; }));
+}
+
+TEST(for_each_test) {
+  std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7};
+  std::vector<int> v2 = {2, 3, 4, 5, 6, 7, 8};
+  // typedef typename std::vector<int>::iterator iterator;
+  TinySTL::for_each(v1.begin(), v1.end(), [](int &i) { i++; });
+  EXPECT_EQ(v1, v2);
+}
+
+TEST(count_test) {
+  std::vector<int> v1 = {1, 44, 5, 6, 7, 8, 9, 0, 15, 6};
+  EXPECT_EQ(1, TinySTL::count(v1.begin(), v1.end(), 44));
+  EXPECT_EQ(1, TinySTL::count(v1.begin(), v1.end(), 15));
+  EXPECT_EQ(2, TinySTL::count(v1.begin(), v1.end(), 6));
+}
+
+TEST(count_if_test) {
+  std::vector<int> v1 = {1, 5, 77, 8, 9, 0, 1};
+  size_t t = TinySTL::count_if(v1.begin(), v1.end(), [](int i) {
+    if (i > 50) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  EXPECT_EQ(1, t);
+}
 }  // namespace TinySTL
 #endif  // !ALGORITHM_TEST_H

@@ -1,7 +1,104 @@
 [
   {
     "$type": "VSToDoList.Models.Task, VSToDoList",
-    "Name": "添加算法的定义",
+    "Name": "添加算法的定义与实现",
+    "IsDone": false,
+    "IsExpanded": true,
+    "SubTasks": [
+      {
+        "$type": "VSToDoList.Models.Task, VSToDoList",
+        "Name": "堆算法",
+        "IsDone": false,
+        "IsExpanded": false,
+        "SubTasks": [],
+        "Status": 0
+      },
+      {
+        "$type": "VSToDoList.Models.Task, VSToDoList",
+        "Name": "非修改序列算法",
+        "IsDone": false,
+        "IsExpanded": false,
+        "SubTasks": [],
+        "Status": 0
+      },
+      {
+        "$type": "VSToDoList.Models.Task, VSToDoList",
+        "Name": "修改序列算法",
+        "IsDone": false,
+        "IsExpanded": false,
+        "SubTasks": [],
+        "Status": 0
+      },
+      {
+        "$type": "VSToDoList.Models.Task, VSToDoList",
+        "Name": "划分操作算法",
+        "IsDone": false,
+        "IsExpanded": false,
+        "SubTasks": [],
+        "Status": 0
+      },
+      {
+        "$type": "VSToDoList.Models.Task, VSToDoList",
+        "Name": "排序操作算法",
+        "IsDone": false,
+        "IsExpanded": false,
+        "SubTasks": [],
+        "Status": 0
+      },
+      {
+        "$type": "VSToDoList.Models.Task, VSToDoList",
+        "Name": "二分查找算法",
+        "IsDone": false,
+        "IsExpanded": false,
+        "SubTasks": [],
+        "Status": 0
+      },
+      {
+        "$type": "VSToDoList.Models.Task, VSToDoList",
+        "Name": "集合操作算法",
+        "IsDone": false,
+        "IsExpanded": false,
+        "SubTasks": [],
+        "Status": 0
+      },
+      {
+        "$type": "VSToDoList.Models.Task, VSToDoList",
+        "Name": "最大最小操作算法",
+        "IsDone": false,
+        "IsExpanded": false,
+        "SubTasks": [],
+        "Status": 0
+      },
+      {
+        "$type": "VSToDoList.Models.Task, VSToDoList",
+        "Name": "比较操作算法",
+        "IsDone": false,
+        "IsExpanded": false,
+        "SubTasks": [],
+        "Status": 0
+      },
+      {
+        "$type": "VSToDoList.Models.Task, VSToDoList",
+        "Name": "排列操作算法",
+        "IsDone": false,
+        "IsExpanded": false,
+        "SubTasks": [],
+        "Status": 0
+      }
+    ],
+    "Status": 0
+  },
+  {
+    "$type": "VSToDoList.Models.Task, VSToDoList",
+    "Name": "数值运算",
+    "IsDone": false,
+    "IsExpanded": false,
+    "SubTasks": [],
+    "Status": 0
+  },
+  {
+    "$type": "VSToDoList.Models.Task, VSToDoList",
+    "Name": "未初始化内存上的操作",
     "IsDone": false,
     "IsExpanded": false,
     "SubTasks": [],
