@@ -116,6 +116,9 @@
     <ClInclude Include="..\test\string_test.h">
       <Filter>test</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\container\bitmap.h">
+      <Filter>include\container</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\main.cpp">

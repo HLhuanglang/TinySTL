@@ -111,7 +111,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>..\3rd;..\include;..\utils;</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessToFile>true</PreprocessToFile>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,6 +167,7 @@
     <ClInclude Include="..\include\algorithm\permutation_algo.h" />
     <ClInclude Include="..\include\algorithm\set_algo.h" />
     <ClInclude Include="..\include\algorithm\sort_algo.h" />
+    <ClInclude Include="..\include\container\bitmap.h" />
     <ClInclude Include="..\include\container\deque.h" />
     <ClInclude Include="..\include\container\Integer.h" />
     <ClInclude Include="..\include\container\list.h" />
