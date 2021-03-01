@@ -17,7 +17,7 @@ namespace TinySTL {
  *  Returns true if @p p is true for each element in the range
  *  @p [first,last), and false otherwise.
  */
-template <class InputIt, class UnaryPredicate>
+template <typename InputIt, typename UnaryPredicate>
 inline bool all_of(InputIt first, InputIt last, UnaryPredicate p) {
   // return last == TinySTL::find_if_not(first, last, p);
   while (first != last) {
@@ -41,7 +41,7 @@ inline bool all_of(InputIt first, InputIt last, UnaryPredicate p) {
  *  Returns true if an element exists in the range @p [first,last)
  *  such that @p p is true, and false otherwise.
  */
-template <class InputIt, class UnaryPredicate>
+template <typename InputIt, typename UnaryPredicate>
 bool any_of(InputIt first, InputIt last, UnaryPredicate p) {
   // return !TinySTL::none_of(first, last, p);
   while (first != last) {
@@ -58,13 +58,13 @@ bool any_of(InputIt first, InputIt last, UnaryPredicate p) {
  *          of a sequence.
  *  @param  first   An input iterator.
  *  @param  last    An input iterator.
- *  @param  pred    A predicate.
+ *  @param  p       A predicate.
  *  @return  True if the check is true, false otherwise.
  *
  *  Returns true if @p p is false for each element in the range
  *  @p [first,last), and false otherwise.
  */
-template <class InputIt, class UnaryPredicate>
+template <typename InputIt, typename UnaryPredicate>
 bool none_of(InputIt first, InputIt last, UnaryPredicate p) {
   // return last == TinySTL::find_if(first, last, p);
   while (first != last) {
@@ -88,7 +88,7 @@ bool none_of(InputIt first, InputIt last, UnaryPredicate p) {
  *  @p [first,last).  @p f must not modify the order of the sequence.
  *  If @p f has a return value it is ignored.
  */
-template <class InputIt, class UnaryFunction>
+template <typename InputIt, typename UnaryFunction>
 UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f) {
   while (first != last) {
     f(*first);
@@ -105,7 +105,7 @@ UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f) {
  *  @return   The number of iterators @c i in the range @p [first,last)
  *  for which @c *i == @p value
  */
-template <class InputIt, class T>
+template <typename InputIt, typename T>
 typename TinySTL::iterator_traits<InputIt>::difference_type count(
     InputIt first, InputIt last, const T& value) {
   typename TinySTL::iterator_traits<InputIt>::difference_type n = 0;
@@ -126,7 +126,7 @@ typename TinySTL::iterator_traits<InputIt>::difference_type count(
  *  @return   The number of iterators @c i in the range @p [first,last)
  *  for which @p p(*i) is true.
  */
-template <class InputIt, class UnaryPredicate>
+template <typename InputIt, typename UnaryPredicate>
 typename TinySTL::iterator_traits<InputIt>::difference_type count_if(
     InputIt first, InputIt last, UnaryPredicate p) {
   typename TinySTL::iterator_traits<InputIt>::difference_type n = 0;
@@ -151,67 +151,135 @@ typename TinySTL::iterator_traits<InputIt>::difference_type count_if(
  *  second iterator points into the second range, and the elements pointed
  *  to by the iterators are not equal.
  */
-template <class InputIt1, class InputIt2>
+template <typename InputIt1, typename InputIt2>
 TinySTL::pair<InputIt1, InputIt2> mismatch(InputIt1 first1, InputIt1 last1,
                                            InputIt2 first2) {
-  // todo
+  while (first1 != last1 && *first1 == *first2) {
+    first1++;
+    first2++;
+  }
+  return TinySTL::pair<InputIt1, InputIt2>(first1, first2);
 }
 
-template <class InputIt1, class InputIt2, class BinaryPredicate>
+/**
+ *  @brief Finds the places in ranges which don't match.
+ *  @ingroup non_mutating_algorithms
+ *  @param  irst1   An input iterator.
+ *  @param  last1   An input iterator.
+ *  @param  first2  An input iterator.
+ *  @param  p       A binary predicate
+ *  @return   A pair of iterators pointing to the first mismatch.
+ *
+ *  This compares the elements of two ranges using the binary_pred
+ *  parameter, and returns a pair of iterators.  The first iterator points into
+ *  the first range, the second iterator points into the second range, and the
+ *  elements pointed to by the iterators are not equal.
+ */
+template <typename InputIt1, typename InputIt2, typename BinaryPredicate>
 TinySTL::pair<InputIt1, InputIt2> mismatch(InputIt1 first1, InputIt1 last1,
                                            InputIt2 first2, BinaryPredicate p) {
-  // todo
+  while (first1 != last1 && p(*first1, *first2)) {
+    first1++;
+    first2++;
+  }
+  return TinySTL::pair<InputIt1, InputIt2>(first1, first2);
 }
 
-template <class InputIt, class T>
+/**
+ *  @brief Finds the places in ranges which don't match.
+ *  @ingroup non_mutating_algorithms
+ *  @param  first1  An input iterator.
+ *  @param  last1   An input iterator.
+ *  @param  first2  An input iterator.
+ *  @param  last2   An input iterator.
+ *  @return  A pair of iterators pointing to the first mismatch.
+ *
+ *  This compares the elements of two ranges using @c == and returns a pair
+ *  of iterators.  The first iterator points into the first range, the
+ *  second iterator points into the second range, and the elements pointed
+ *  to by the iterators are not equal.
+ */
+template <typename InputIt1, typename InputIt2, typename BinaryPredicate>
+TinySTL::pair<InputIt1, InputIt2> mismatch(InputIt1 first1, InputIt1 last1,
+                                           InputIt2 first2, InputIt2 last2) {
+  while (first1 != last1 && first2 != last2 && *first1 == *first2) {
+    first1++;
+    first2++;
+  }
+  return TinySTL::pair<InputIt1, InputIt2>(first1, first2);
+}
+
+/**
+ *  @brief Finds the places in ranges which don't match.
+ *  @ingroup non_mutating_algorithms
+ *  @param  first1  An input iterator.
+ *  @param  last1   An input iterator.
+ *  @param  first2  An input iterator.
+ *  @param  last2   An input iterator.
+ *  @param  p   A binary predicate
+ *  @return   A pair of iterators pointing to the first mismatch.
+ *
+ *  This compares the elements of two ranges using the binary_pred
+ *  parameter, and returns a pair
+ *  of iterators.  The first iterator points into the first range, the
+ *  second iterator points into the second range, and the elements pointed
+ *  to by the iterators are not equal.
+ */
+template <typename InputIt1, typename InputIt2, typename BinaryPredicate>
+TinySTL::pair<InputIt1, InputIt2> mismatch(InputIt1 first1, InputIt1 last1,
+                                           InputIt2 first2, InputIt2 last2,
+                                           BinaryPredicate p) {
+  while (first1 != last1 && first2 != last2 && p(*first1, *first2)) {
+    first1++;
+    first2++;
+  }
+  return TinySTL::pair<InputIt1, InputIt2>(first1, first2);
+}
+
+/**
+ *  @brief Finds the first position in which
+ *  @ingroup non_mutating_algorithms
+ *  @param  first1  An input iterator.
+ *  @param  last1   An input iterator.
+ *  @param  first2  An input iterator.
+ *
+ *  This compares the elements of two ranges using the binary_pred
+ *  parameter, and returns a pair
+ *  of iterators.  The first iterator points into the first range, the
+ *  second iterator points into the second range, and the elements pointed
+ *  to by the iterators are not equal.
+ */
+template <typename InputIt, typename T>
 InputIt find(InputIt first, InputIt last, const T& value) {
   // todo
 }
 
-template <class InputIt, class UnaryPredicate>
+template <typename InputIt, typename UnaryPredicate>
 InputIt find_if(InputIt first, InputIt last, UnaryPredicate p) {
   // todo
 }
 
-template <class InputIt, class UnaryPredicate>
+template <typename InputIt, typename UnaryPredicate>
 InputIt find_if_not(InputIt first, InputIt last, UnaryPredicate q) {
   // todo
 }
 
-template <class ForwardIt1, class ForwardIt2>
+template <typename ForwardIt1, typename ForwardIt2>
 ForwardIt1 find_end(ForwardIt1 first, ForwardIt1 last, ForwardIt2 s_first,
                     ForwardIt2 s_last) {
   // todo
 }
 
-template <class ForwardIt1, class ForwardIt2, class BinaryPredicate>
+template <typename ForwardIt1, typename ForwardIt2, typename BinaryPredicate>
 ForwardIt1 find_end(ForwardIt1 first, ForwardIt1 last, ForwardIt2 s_first,
                     ForwardIt2 s_last, BinaryPredicate p) {
   // todo
 }
 
-template <class ForwardIt1, class ForwardIt2>
+template <typename ForwardIt1, typename ForwardIt2>
 ForwardIt1 find_first_of(ForwardIt1 first, ForwardIt1 last, ForwardIt2 s_first,
                          ForwardIt2 s_last) {
   // todo
 }
-
-// template <class InputIt, class ForwardIt>
-// InputIt find_first_of(InputIt first, InputIt last, ForwardIt s_first,
-//                      ForwardIt s_last) {
-//  // todo
-//}
-
-// template <class ForwardIt1, class ForwardIt2, class BinaryPredicate>
-// ForwardIt1 find_first_of(ForwardIt1 first, ForwardIt1 last, ForwardIt2
-// s_first,
-//                         ForwardIt2 s_last, BinaryPredicate p) {
-//  // todo
-//}
-// template <class InputIt, class ForwardIt, class BinaryPredicate>
-// InputIt find_first_of(InputIt first, InputIt last, ForwardIt s_first,
-//                      ForwardIt s_last, BinaryPredicate p) {
-//  // todo
-//}
 }  // namespace TinySTL
 #endif

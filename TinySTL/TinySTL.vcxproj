@@ -111,6 +111,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>..\3rd;..\include;..\utils;</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessToFile>true</PreprocessToFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
