@@ -182,6 +182,7 @@
     <ClInclude Include="..\include\fundation\utility.h" />
     <ClInclude Include="..\test\algorithm_test.h" />
     <ClInclude Include="..\test\Integer_test.h" />
+    <ClInclude Include="..\test\string_test.h" />
     <ClInclude Include="..\test\UnitTest.h" />
     <ClInclude Include="..\utils\hldb_log.h" />
   </ItemGroup>
