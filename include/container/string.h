@@ -5,6 +5,7 @@
 #include <initializer_list>
 
 #include "fundation/allocator.h"
+#include "fundation/initializer_list.h"
 #include "fundation/iterator.h"
 
 namespace TinySTL {
@@ -37,26 +38,111 @@ class basic_string {
 
  public:
   // 构造、析构
-  basic_string() : size_(0), capacity_(0), buffer_(nullptr) {}
+  basic_string() : size_(0), capacity_(0), buffer_(nullptr) {
+    //这样写没什么依据...
+    this->capacity_ = 15;
+    this->buffer_ = new CharType[15];
+  }
 
-  explicit basic_string(const Allocator& alloc) noexcept {}
+  basic_string(size_type count, CharType val,
+               const Allocator& alloc = Allocator()) {
+    this->size_ = count;
+    this->capacity_ = count;
+    // allocate分配内存是以8的倍数分配的,当count刚好是8的倍数时,就会导致内存溢出
+    // 因为字符串总是以\0结尾的,默认时要多一个1字节的
+    this->buffer_ = alloc.allocate(count + 1);
+    for (int i = 0; i < count; i++) {
+      this->buffer_[i] = val;
+    }
+    this->buffer_[count] = '\0';
+  }
 
-  basic_string(size_type count, CharType ch, const Allocator& alloc);
-
-  basic_string(const CharType* s, size_type count, const Allocator& alloc);
+  // count,截取str里面多少个内容
+  // s("12345",3) => s为123
+  basic_string(const CharType* str, size_type count,
+               const Allocator& alloc = Allocator()) {
+    if (strlen(str) < count) {
+      this->size_ = strlen(str);
+      this->capacity_ = count;
+      this->buffer_ = alloc.allocate(count + 1);
+      strcpy(this->buffer_, str);
+    } else {
+      this->size_ = count;
+      this->capacity_ = count;
+      this->buffer_ = alloc.allocate(count + 1);
+      for (int i = 0; i < count; i++) {
+        this->buffer_[i] = str[i];
+      }
+      this->buffer_[count] = '\0';
+    }
+  }
 
   basic_string(const CharType* s, const Allocator& alloc = Allocator()) {
     this->size_ = strlen(s);
-    this->buffer_ = alloc.allocate(this->size_);
-    this->buffer_ = strcpy(this->buffer_, s);
+    this->buffer_ = alloc.allocate(this->size_ + 1);
+    this->buffer_ =
+        strcpy(this->buffer_, s);  //调用strcpy会多加一个 \0 表示结束
     this->capacity_ = this->size_;
   }
 
-  basic_string(const basic_string& other);
-  basic_string(const basic_string& other, const Allocator& alloc);
+  basic_string(const basic_string& other,
+               const Allocator& alloc = Allocator()) {
+    this->buffer_ =
+        alloc.allocate(other.capacity_);  //这里不用+1,因为other是一个合法的对象
+    this->size_ = other.size_;
+    this->capacity_ = other.capacity_;
+    strcpy(this->buffer_, other.buffer_);
+  }
+
+  basic_string(const basic_string& other, size_type pos, size_type count = npos,
+               const Allocator& alloc = Allocator()) {
+    this->size_ = other.size() - pos;
+    this->capacity_ = this->size_;
+    this->buffer_ = alloc.allocate(this->size_ + 1);
+    for (int i = pos, j = 0; i < other.size_; i++, j++) {
+      this->buffer_[j] = other.buffer_[i];
+    }
+    this->buffer_[this->size_] = '\0';
+  }
+
+  // std::string  s({'1', '2', '3', '4', '5'}); s为12345
   basic_string(std::initializer_list<CharType> ilist,
-               const Allocator& alloc = Allocator());
-  ~basic_string() {}
+               const Allocator& alloc = Allocator()) {
+    // todo
+  }
+
+  // std::string  s({'a', 'b', 'c', 'd', 'e'}, 3); s为de
+  basic_string(std::initializer_list<CharType> ilist, size_type pos,
+               const Allocator& alloc = Allocator()) {
+    //需要把这个initializer_list对象绑定成basic_string,暂时不知道有什么好方法
+    basic_string temp_bs;
+    size_t ilist_size = ilist.size();
+    CharType* temp_buf = new CharType[ilist_size + 1];
+    int i = 0;
+    // typename std::initializer_list<CharType>::iterator iter;
+    // for (iter = ilist.begin(); iter != ilist.end(); ++iter, ++i) {
+    //  temp_buf[i] = *iter;
+    //}
+
+    for (auto iter : ilist) {
+      temp_buf[i] = iter;
+      i++;
+    }
+    temp_buf[ilist_size] = '\0';
+    temp_bs.size_ = ilist_size;
+    temp_bs.buffer_ = temp_buf;
+    // https://www.cnblogs.com/chio/archive/2007/10/20/931043.html
+    new (this) basic_string(temp_bs, pos);
+  }
+
+  ~basic_string() {
+    if (this->buffer_ != nullptr && this->size_ != 0) {
+      delete[] this->buffer_;
+      this->buffer_ = nullptr;
+    }
+    this->size_ = 0;
+    this->capacity_ = 0;
+  }
 
   // 成员函数
   basic_string<CharType, Traits, Allocator>& append(const value_type* ptr);
@@ -111,7 +197,7 @@ class basic_string {
 
   const value_type* c_str() const;
 
-  size_type capacity() const;
+  size_type count() const;
 
   const_iterator cbegin() const;
 
@@ -336,7 +422,7 @@ class basic_string {
 
   void shrink_to_fit();
 
-  size_type size() const;
+  size_type size() const { return this->size_; }
 
   basic_string<CharType, Traits, Allocator> substr(
       size_type offset = 0, size_type count = npos) const;
@@ -344,22 +430,29 @@ class basic_string {
   void swap(basic_string<CharType, Traits, Allocator>& str);
 
   // 运算符
-  basic_string<CharType, Traits, Allocator>& operator+=(value_type char_value);
+  basic_string<CharType, Traits, Allocator>& operator+=(value_type char_value) {
+    //暂时这样写，需要考虑边界问题
+    this->buffer_[this->size_] = char_value;
+    this->buffer_[this->size_ + 1] = '\0';
+    this->size_ += 1;
+
+    return *this;
+  }
+
   basic_string<CharType, Traits, Allocator>& operator+=(const value_type* ptr);
+
   basic_string<CharType, Traits, Allocator>& operator+=(
       const basic_string<CharType, Traits, Allocator>& right);
 
   basic_string<CharType, Traits, Allocator>& operator=(value_type char_value);
+
   basic_string<CharType, Traits, Allocator>& operator=(const value_type* ptr);
 
   basic_string<CharType, Traits, Allocator>& operator=(
       const basic_string<CharType, Traits, Allocator>& right) {}
 
   basic_string<CharType, Traits, Allocator>& operator=(
-    const basic_string<CharType, Traits, Allocator>&& right)
-  {
-
-  }
+      const basic_string<CharType, Traits, Allocator>&& right) {}
 
   const_reference operator[](size_type offset) const;
   reference operator[](size_type offset);
@@ -371,74 +464,6 @@ class basic_string {
 };
 
 using String = basic_string<char>;
-
-// class String {
-// public:
-//  String();
-//  String(const char*);
-//  String(const String&);
-//  // todo:各种构造函数
-//  String(const char*, size_t);
-//  String(String&&);
-//  ~String();
-//  String& operator=(const String&);
-//
-// private:
-//  static const size_t npos = -1;  //结束标志位
-//  size_t size_;
-//  size_t capacity_;  //容器最大容量
-//  char* buffer_;
-//  TinySTL::allocator<char> alloc_;
-//};
-//
-// String::String() : size_(0), capacity_(0), buffer_(nullptr) {}
-//
-// String::String(const char* val) {
-//  if (val == "") {
-//    this->buffer_ = nullptr;
-//    this->size_ = 0;
-//    this->capacity_ = 0;
-//  } else {
-//    this->size_ = strlen(val);                     //计算空间
-//    this->buffer_ = alloc_.allocate(this->size_);  //申请空间
-//    strcpy(this->buffer_, val);                    //拷贝内容
-//    this->capacity_ = this->size_;
-//  }
-//}
-//
-// String::String(const String& rhs) {
-//  this->buffer_ = this->alloc_.allocate(rhs.size_);
-//  strcpy(this->buffer_, rhs.buffer_);
-//  this->size_ = rhs.size_;
-//}
-//
-// String::String(String&& rhs) {
-//  //转移
-//  this->buffer_ = rhs.buffer_;
-//  this->capacity_ = rhs.capacity_;
-//  this->size_ = rhs.size_;
-//  //释放
-//  delete[] rhs.buffer_;
-//  rhs.buffer_ = nullptr;
-//  rhs.buffer_ = 0;
-//  rhs.capacity_ = 0;
-//}
-//
-// String::~String() {
-//  if (this->buffer_ != nullptr) {
-//    this->alloc_.deallocate(this->buffer_);
-//  }
-//  this->size_ = 0;
-//  this->capacity_ = 0;
-//}
-//
-// String& String::operator=(const String& rhs) {
-//  this->buffer_ = this->alloc_.allocate(rhs.size_);
-//  strcpy(this->buffer_, rhs.buffer_);
-//  this->size_ = rhs.size_;
-//  this->capacity_ = rhs.capacity_;
-//  return *this;
-//}
 }  // namespace TinySTL
 
 #endif

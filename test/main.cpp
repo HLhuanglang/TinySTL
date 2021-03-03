@@ -4,7 +4,7 @@
 #include "string_test.h"
 
 int main() {
-  Integer_test();
+  // Integer_test();
   String_test();
   hldb_log_init();
   hldb_log_set_target_by_str("file");

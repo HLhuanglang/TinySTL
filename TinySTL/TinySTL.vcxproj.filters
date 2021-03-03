@@ -119,6 +119,9 @@
     <ClInclude Include="..\include\container\bitmap.h">
       <Filter>include\container</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\fundation\initializer_list.h">
+      <Filter>include\fundation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\main.cpp">
