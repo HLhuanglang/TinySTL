@@ -2,15 +2,12 @@
 #define STRING_H_
 #include <string.h>
 
-#include <string>
+#include <initializer_list>
 
 #include "fundation/allocator.h"
 #include "fundation/iterator.h"
 
 namespace TinySTL {
-// basic_string
-// 参考gcc、msvc
-
 // CharType：要存储在字符串中的单个字符的数据类型
 // Traits：描述了 basic_string 特殊化中元素的各种重要属性 Traits
 // Allocator：内存分配器类型（此类的方法都是static）
@@ -39,6 +36,28 @@ class basic_string {
   static const size_t npos = -1;
 
  public:
+  // 构造、析构
+  basic_string() : size_(0), capacity_(0), buffer_(nullptr) {}
+
+  explicit basic_string(const Allocator& alloc) noexcept {}
+
+  basic_string(size_type count, CharType ch, const Allocator& alloc);
+
+  basic_string(const CharType* s, size_type count, const Allocator& alloc);
+
+  basic_string(const CharType* s, const Allocator& alloc = Allocator()) {
+    this->size_ = strlen(s);
+    this->buffer_ = alloc.allocate(this->size_);
+    this->buffer_ = strcpy(this->buffer_, s);
+    this->capacity_ = this->size_;
+  }
+
+  basic_string(const basic_string& other);
+  basic_string(const basic_string& other, const Allocator& alloc);
+  basic_string(std::initializer_list<CharType> ilist,
+               const Allocator& alloc = Allocator());
+  ~basic_string() {}
+
   // 成员函数
   basic_string<CharType, Traits, Allocator>& append(const value_type* ptr);
   basic_string<CharType, Traits, Allocator>& append(const value_type* ptr,
@@ -53,10 +72,9 @@ class basic_string {
   template <typename InputIterator>
   basic_string<CharType, Traits, Allocator>& append(InputIterator first,
                                                     InputIterator last);
+
   basic_string<CharType, Traits, Allocator>& append(const_pointer first,
                                                     const_pointer last);
-  basic_string<CharType, Traits, Allocator>& append(const_iterator first,
-                                                    const_iterator last);
 
   basic_string<CharType, Traits, Allocator>& assign(const value_type* ptr);
 
@@ -78,9 +96,6 @@ class basic_string {
 
   basic_string<CharType, Traits, Allocator>& assign(const_pointer first,
                                                     const_pointer last);
-
-  basic_string<CharType, Traits, Allocator>& assign(const_iterator first,
-                                                    const_iterator last);
 
   const_reference at(size_type offset) const;
 
@@ -118,8 +133,8 @@ class basic_string {
   int compare(size_type position_1, size_type number_1,
               const value_type* ptr) const;
 
-  int compare(size_type position_1, size_type number_1,
-              const value_type* ptr size_type number_2) const;
+  int compare(size_type position_1, size_type number_1, const value_type* ptr,
+              size_type number_2) const;
 
   size_type copy(value_type* ptr, size_type count, size_type offset = 0) const;
 
@@ -235,8 +250,6 @@ class basic_string {
 
   void insert(iterator iter, const_pointer first, const_pointer last);
 
-  void insert(iterator iter, const_iterator first, const_iterator last);
-
   size_type length() const;
 
   size_type max_size() const;
@@ -305,14 +318,9 @@ class basic_string {
                                                      const_pointer first,
                                                      const_pointer last);
 
-  basic_string<CharType, Traits, Allocator>& replace(iterator first0,
-                                                     iterator last0,
-                                                     const_iterator first,
-                                                     const_iterator last);
-
   void reserve(size_type count = 0);
 
-  void resize(size_type count, );
+  void resize(size_type count);
 
   void resize(size_type count, value_type char_value);
 
@@ -343,82 +351,94 @@ class basic_string {
 
   basic_string<CharType, Traits, Allocator>& operator=(value_type char_value);
   basic_string<CharType, Traits, Allocator>& operator=(const value_type* ptr);
+
   basic_string<CharType, Traits, Allocator>& operator=(
-      const basic_string<CharType, Traits, Allocator>& right);
+      const basic_string<CharType, Traits, Allocator>& right) {}
+
   basic_string<CharType, Traits, Allocator>& operator=(
-      const basic_string<CharType, Traits, Allocator>&& right);
+    const basic_string<CharType, Traits, Allocator>&& right)
+  {
+
+  }
 
   const_reference operator[](size_type offset) const;
   reference operator[](size_type offset);
-};
-
-class String {
- public:
-  String();
-  String(const char*);
-  String(const String&);
-  // todo:各种构造函数
-  String(const char*, size_t);
-  String(String&&);
-  ~String();
-  String& operator=(const String&);
 
  private:
-  static const size_t npos = -1;  //结束标志位
-  size_t size_;
-  size_t capacity_;  //容器最大容量
-  char* buffer_;
-  TinySTL::allocator<char> alloc_;
+  size_type size_;
+  size_type capacity_;
+  CharType* buffer_;
 };
 
-String::String() : size_(0), capacity_(0), buffer_(nullptr) {}
+using String = basic_string<char>;
 
-String::String(const char* val) {
-  if (val == "") {
-    this->buffer_ = nullptr;
-    this->size_ = 0;
-    this->capacity_ = 0;
-  } else {
-    this->size_ = strlen(val);                     //计算空间
-    this->buffer_ = alloc_.allocate(this->size_);  //申请空间
-    strcpy(this->buffer_, val);                    //拷贝内容
-    this->capacity_ = this->size_;
-  }
-}
-
-String::String(const String& rhs) {
-  this->buffer_ = this->alloc_.allocate(rhs.size_);
-  strcpy(this->buffer_, rhs.buffer_);
-  this->size_ = rhs.size_;
-}
-
-String::String(String&& rhs) {
-  //转移
-  this->buffer_ = rhs.buffer_;
-  this->capacity_ = rhs.capacity_;
-  this->size_ = rhs.size_;
-  //释放
-  delete[] rhs.buffer_;
-  rhs.buffer_ = nullptr;
-  rhs.buffer_ = 0;
-  rhs.capacity_ = 0;
-}
-
-String::~String() {
-  if (this->buffer_ != nullptr) {
-    this->alloc_.deallocate(this->buffer_);
-  }
-  this->size_ = 0;
-  this->capacity_ = 0;
-}
-
-String& String::operator=(const String& rhs) {
-  this->buffer_ = this->alloc_.allocate(rhs.size_);
-  strcpy(this->buffer_, rhs.buffer_);
-  this->size_ = rhs.size_;
-  this->capacity_ = rhs.capacity_;
-  return *this;
-}
+// class String {
+// public:
+//  String();
+//  String(const char*);
+//  String(const String&);
+//  // todo:各种构造函数
+//  String(const char*, size_t);
+//  String(String&&);
+//  ~String();
+//  String& operator=(const String&);
+//
+// private:
+//  static const size_t npos = -1;  //结束标志位
+//  size_t size_;
+//  size_t capacity_;  //容器最大容量
+//  char* buffer_;
+//  TinySTL::allocator<char> alloc_;
+//};
+//
+// String::String() : size_(0), capacity_(0), buffer_(nullptr) {}
+//
+// String::String(const char* val) {
+//  if (val == "") {
+//    this->buffer_ = nullptr;
+//    this->size_ = 0;
+//    this->capacity_ = 0;
+//  } else {
+//    this->size_ = strlen(val);                     //计算空间
+//    this->buffer_ = alloc_.allocate(this->size_);  //申请空间
+//    strcpy(this->buffer_, val);                    //拷贝内容
+//    this->capacity_ = this->size_;
+//  }
+//}
+//
+// String::String(const String& rhs) {
+//  this->buffer_ = this->alloc_.allocate(rhs.size_);
+//  strcpy(this->buffer_, rhs.buffer_);
+//  this->size_ = rhs.size_;
+//}
+//
+// String::String(String&& rhs) {
+//  //转移
+//  this->buffer_ = rhs.buffer_;
+//  this->capacity_ = rhs.capacity_;
+//  this->size_ = rhs.size_;
+//  //释放
+//  delete[] rhs.buffer_;
+//  rhs.buffer_ = nullptr;
+//  rhs.buffer_ = 0;
+//  rhs.capacity_ = 0;
+//}
+//
+// String::~String() {
+//  if (this->buffer_ != nullptr) {
+//    this->alloc_.deallocate(this->buffer_);
+//  }
+//  this->size_ = 0;
+//  this->capacity_ = 0;
+//}
+//
+// String& String::operator=(const String& rhs) {
+//  this->buffer_ = this->alloc_.allocate(rhs.size_);
+//  strcpy(this->buffer_, rhs.buffer_);
+//  this->size_ = rhs.size_;
+//  this->capacity_ = rhs.capacity_;
+//  return *this;
+//}
 }  // namespace TinySTL
 
 #endif

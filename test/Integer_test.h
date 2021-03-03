@@ -8,6 +8,7 @@ void Integer_test() {
   TinySTL::Integer n2(-10023000);
   TinySTL::Integer n3(n2);
   TinySTL::Integer n4 = n2;
+  TinySTL::Integer n4 = TinySTL::Integer(12345678);  //?
   std::cout << "Default Integer object n1 is " << n1 << std::endl;
   std::cout << "Non-default Integer object n2 is " << n2 << std::endl;
   std::cout << "Non-default Integer object n3 is " << n3 << std::endl;
